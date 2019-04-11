@@ -32,7 +32,7 @@ rule target_intervals:
     log:
         "output/{exp}/{sample}/targetintervals_{sample}.log"
     shell:
-        "java -jar /opt/biotools/gatk3/GenomeAnalysisTK.jar "
+        "java -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T RealignerTargetCreator "
 	    "-R {params.ref} "
 	    "-I {input} "
@@ -49,7 +49,7 @@ rule indel_realignment:
     log:
         "output/{exp}/{sample}/indel_realignment_{sample}.log"
     shell:
-        "java -jar /opt/biotools/gatk3/GenomeAnalysisTK.jar "
+        "java -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T IndelRealigner "
 	    "-R {params.ref} "
         "-targetIntervals {input.target} "
