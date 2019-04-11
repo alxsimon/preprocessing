@@ -51,6 +51,7 @@ IncludeCmd: yes
 
 	## Install Bioinfo tools ##
 	conda install \
+		snakemake=5.4.4 \
 		samtools=1.9 \
 		bamtools=2.5.1 \
 		vcftools=0.1.16 \
