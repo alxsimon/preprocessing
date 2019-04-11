@@ -1,0 +1,36 @@
+# global variables of the pipeline
+
+container: container/bioinfo_dm.sif
+samples: samples_info.tsv
+ref_fasta: ref_genome/mg10.scaffolds.fa
+threads: 2
+
+hiseq_rg1: "L001"
+hiseq_rg2: "L002"
+
+novaseq_rg1: "AH52GLDSXX"
+novaseq_rg2: "AH52HJDSXX"
+
+# fastp global parameters
+fastp_complexity_threshold: 20
+fastp_P: 100
+
+adapters:
+    Mgallo:
+        read1: "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+        read2: "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+    Hiseq:
+        read1: "CTGTCTCTTATACACATCT"
+        read2: "CTGTCTCTTATACACATCT"
+    Novaseq:
+        read1: "CTGTCTCTTATACACATCT"
+        read2: "CTGTCTCTTATACACATCT"
+
+# baw parameters
+bwa_k: 10
+bwa_L: 3
+bwa_B: 2
+bwa_O: 3
+
+# samtools sort parameters
+samtools_sort_m: 1G
