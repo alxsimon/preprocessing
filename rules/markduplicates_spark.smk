@@ -5,8 +5,9 @@ rule markduplicates_1rg:
         "output/{exp}/{sample}/{sample}_RG1.mapped.bam"
     output:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
-        metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}.log"
-    shadow: "shallow"
+        metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}"
+    shadow:
+        "full"
     wildcard_constraints:
         exp = "Mgallo"
     params:
@@ -34,8 +35,6 @@ rule markduplicates_1rg:
         else
             exit 0
         fi
-
-        rm -r output/{wildcards.exp}/{wildcards.sample}/{wildcards.sample}.mapped.dedup.bam.*
         """
 
 
@@ -44,8 +43,9 @@ rule markduplicates_2rg:
         expand("output/{{exp}}/{{sample}}/{{sample}}_{RG}.mapped.bam", RG = ["RG1", "RG2"])
     output:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
-        metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}.log"
-    shadow: "shallow"
+        metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}"
+    shadow:
+        "full"
     wildcard_constraints:
         exp = "Hiseq|Novaseq"
     params:
@@ -74,6 +74,4 @@ rule markduplicates_2rg:
         else
             exit 0
         fi
-
-        rm -r output/{wildcards.exp}/{wildcards.sample}/{wildcards.sample}.mapped.dedup.bam.*
         """

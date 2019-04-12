@@ -26,7 +26,7 @@ rule index_before:
 rule target_intervals:
     input:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
-        index = "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai",
+        bai = "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai",
         ref_fai = config['ref_fasta'] + ".fai",
         ref_dict = config['ref_fasta'][:-3] + ".dict"
     output:
@@ -45,10 +45,11 @@ rule target_intervals:
 rule indel_realignment:
     input:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
+        bai = "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai",
         target = "output/{exp}/{sample}/{sample}_forIndelRealigner.intervals"
     output:
-        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam")
-    shadow: "shallow"
+        bam = temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"),
+        bai = temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bai")
     params:
         ref = config['ref_fasta']
     log:
@@ -59,13 +60,14 @@ rule indel_realignment:
 	    "-R {params.ref} "
         "-targetIntervals {input.target} "
 	    "-I {input.bam} "
-	    "-o {output} |& tee {log}"
+	    "-o {output.bam} |& tee {log}"
 
 rule sort_index_final:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"
     output:
-        protected("results/{exp}/{sample}/{sample}.preproc.bam")
+        bam = protected("results/{exp}/{sample}/{sample}.preproc.bam"),
+        bai = protected("results/{exp}/{sample}/{sample}.preproc.bai")
     params:
         compression = 6,
         m = config['samtools_sort_m']
@@ -78,9 +80,9 @@ rule sort_index_final:
         "-O BAM "
         "-l {params.compression} "
         "-@ {threads} "
-        "-o {output} "
+        "-o {output.bam} "
         "{input} "
         # index
         "&& samtools index "
         "-@ {threads} "
-        "{output}"
+        "{output.bam}"

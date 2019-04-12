@@ -1,11 +1,13 @@
-rule index_ref_genome:
+rule index_ref_genome_bwa:
     input:
         config['ref_fasta']
     output:
         expand(config['ref_fasta'] + ".{extensions}",
             extensions = ["amb", "ann", "bwt", "pac", "sa"])
     log:
-        "ref_genome/index.log"
+        "logs/bwa_ref_indexing.log"
+    priority:
+        50
     shell:
         "bwa index "
         "{input} |& tee {log}"
@@ -14,7 +16,7 @@ rule bwa_map:
     input:
         clean_R1 = "output/{exp}/{sample}/{sample}_{RG}_R1.clean.fastq.gz",
         clean_R2 = "output/{exp}/{sample}/{sample}_{RG}_R2.clean.fastq.gz",
-        index = expand(config['ref_fasta'] + ".{extensions}",
+        ref_bwaindex = expand(config['ref_fasta'] + ".{extensions}",
             extensions = ["amb", "ann", "bwt", "pac", "sa"])
     output:
         "output/{exp}/{sample}/{sample}_{RG}.mapped.bam"
@@ -29,7 +31,7 @@ rule bwa_map:
     threads:
         config['threads']
     log:
-        "logs/{exp}/bwa_mem_log_{sample}_{RG}.log"
+        "logs/{exp}/bwa_mem_stderr_{sample}_{RG}.log"
     shell:
         "bwa mem "
         "-k {params.k} "
@@ -46,4 +48,4 @@ rule bwa_map:
         "-n "
         "-O BAM "
         "-l 1 "
-        "-o {output} 2>> {log}"
+        "-o {output}"
