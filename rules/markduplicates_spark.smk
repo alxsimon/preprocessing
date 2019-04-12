@@ -49,7 +49,7 @@ rule markduplicates_2rg:
     params:
         ref = config['ref_fasta']
     log:
-        "output/{exp}/{sample}/markduplicates_stdout_{sample}.log"
+        "logs/{exp}/markduplicates_stdout_{sample}.log"
     threads:
         config['threads']
     shell:
