@@ -8,29 +8,20 @@ rule fai_dict_ref:
         "samtools faidx {input} "
         "&& gatk CreateSequenceDictionary -R {input}"
 
+# Because the index option of MarkDuplicatesSpark does not seem to work
 rule index_before:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.bam"
     output:
-        temp("output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam")
+        "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai"
     params:
         compression = 1,
-        m = config['samtools_sort_m']
     threads:
         config['threads']
     shell:
-        # Sort
-        "samtools sort "
-        "-m {params.m} "
-        "-O BAM "
-        "-l {params.compression} "
+        "samtools index "
         "-@ {threads} "
-        "-o {output} "
-        "{input} "
-        # index
-        "&& samtools index "
-        "-@ {threads} "
-        "{output}"
+        "{input}"
 
 rule target_intervals:
     input:
