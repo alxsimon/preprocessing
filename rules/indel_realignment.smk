@@ -8,7 +8,7 @@ rule fai_dict_ref:
         "samtools faidx {input} "
         "&& gatk CreateSequenceDictionary -R {input}"
 
-rule sort_index_before:
+rule index_before:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.bam"
     output:
@@ -34,7 +34,8 @@ rule sort_index_before:
 
 rule target_intervals:
     input:
-        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam",
+        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
+        index = "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai",
         ref_fai = config['ref_fasta'] + ".fai",
         ref_dict = config['ref_fasta'][:-3] + ".dict"
     output:
@@ -52,7 +53,7 @@ rule target_intervals:
 
 rule indel_realignment:
     input:
-        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam",
+        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
         target = "output/{exp}/{sample}/{sample}_forIndelRealigner.intervals"
     output:
         temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam")

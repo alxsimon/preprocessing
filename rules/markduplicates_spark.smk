@@ -15,14 +15,26 @@ rule markduplicates_1rg:
     threads:
         config['threads']
     shell:
-        "gatk MarkDuplicatesSpark "
-        "-I {input} "
-        "-O {output.bam} "
-        "-R {params.ref} "
-        "--remove-all-duplicates true "
-        "-M {output.metrics} "
-        "--conf 'spark.executor.cores={threads}' "
-        "|& tee {log}"
+        """
+        set +e
+        gatk MarkDuplicatesSpark \
+        -I {input[0]} \
+        -O {output.bam} \
+        -R {params.ref} \
+        --remove-all-duplicates true \
+        -M {output.metrics} \
+        --conf \"spark.executor.cores={threads}\" \
+        |& tee {log}
+
+        exitcode=$?
+        if [ $exitcode -eq 1 ]
+        then
+            exit 1
+        else
+            exit 0
+        fi
+        """
+
 
 rule markduplicates_2rg:
     input:
@@ -39,12 +51,23 @@ rule markduplicates_2rg:
     threads:
         config['threads']
     shell:
-        "gatk MarkDuplicatesSpark "
-        "-I {input[0]} "
-        "-I {input[1]} "
-        "-O {output.bam} "
-        "-R {params.ref} "
-        "--remove-all-duplicates true "
-        "-M {output.metrics} "
-        "--conf 'spark.executor.cores={threads}' "
-        "|& tee {log}"
+        """
+        set +e
+        gatk MarkDuplicatesSpark \
+        -I {input[0]} \
+        -I {input[1]} \
+        -O {output.bam} \
+        -R {params.ref} \
+        --remove-all-duplicates true \
+        -M {output.metrics} \
+        --conf \"spark.executor.cores={threads}\" \
+        |& tee {log}
+
+        exitcode=$?
+        if [ $exitcode -eq 1 ]
+        then
+            exit 1
+        else
+            exit 0
+        fi
+        """

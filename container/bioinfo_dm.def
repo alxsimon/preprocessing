@@ -1,6 +1,5 @@
 BootStrap: docker
 From: ubuntu:18.04
-IncludeCmd: yes
 
 %labels
 	Author Alexis Simon
@@ -31,18 +30,17 @@ IncludeCmd: yes
 		tzdata
 
 	### Install R ###
-	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-	add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
-	apt-get update
-	apt-get -y install r-base r-base-dev
+	#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+	#add-apt-repository 'deb https://mirror.ibcp.fr/pub/CRAN//bin/linux/ubuntu bionic-cran35/'
+	#apt-get update
+	#apt-get -y install r-base r-base-dev
 
 	### Install Conda ###
 	echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh \
 	&& curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
 	&& bash /tmp/miniconda.sh -bp /opt/conda \
 	&& export PATH=/opt/conda/bin:$PATH \
-	&& conda install -y python=3.6 \
-	&& conda update conda \
+	&& conda update -y conda \
 	&& conda clean --all --yes
 
 	conda config --add channels defaults
@@ -50,7 +48,7 @@ IncludeCmd: yes
 	conda config --add channels conda-forge
 
 	## Install Bioinfo tools ##
-	conda install \
+	conda install -y \
 		snakemake=5.4.4 \
 		samtools=1.9 \
 		bamtools=2.5.1 \
