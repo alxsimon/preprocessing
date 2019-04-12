@@ -66,8 +66,7 @@ rule sort_index_final:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"
     output:
-        bam = protected("results/{exp}/{sample}/{sample}.preproc.bam"),
-        bai = protected("results/{exp}/{sample}/{sample}.preproc.bai")
+        bam = protected("results/{exp}/{sample}/{sample}.preproc.bam")
     params:
         compression = 6,
         m = config['samtools_sort_m']
