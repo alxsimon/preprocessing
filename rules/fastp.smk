@@ -12,7 +12,7 @@ rule fastp:
         adapter_sequence_R2 = lambda wildcards: config['adapters'][wildcards.exp]['read1'],
         P = config['fastp_P']
     log:
-        "output/{exp}/{sample}/fastp_stdout_{sample}_{RG}.log"
+        "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
     threads:
         config['threads']
     shell:

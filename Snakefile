@@ -8,9 +8,9 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        expand("output/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
-        expand("output/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
-        expand("output/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq)
+        expand("results/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
+        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq)
 
 include: "rules/fastp.smk"
 

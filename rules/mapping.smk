@@ -29,7 +29,7 @@ rule bwa_map:
     threads:
         config['threads']
     log:
-        "output/{exp}/{sample}/bwa_mem_log_{sample}_{RG}.log"
+        "logs/{exp}/bwa_mem_log_{sample}_{RG}.log"
     shell:
         "bwa mem "
         "-k {params.k} "

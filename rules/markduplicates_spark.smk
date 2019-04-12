@@ -11,7 +11,7 @@ rule markduplicates_1rg:
     params:
         ref = config['ref_fasta']
     log:
-        "output/{exp}/{sample}/markduplicates_stdout_{sample}.log"
+        "logs/{exp}/markduplicates_stdout_{sample}.log"
     threads:
         config['threads']
     shell:
@@ -33,6 +33,8 @@ rule markduplicates_1rg:
         else
             exit 0
         fi
+
+        rm -r output/{wildcards.exp}/{wildcards.sample}/{wildcards.sample}.mapped.dedup.bam.*
         """
 
 
@@ -70,4 +72,6 @@ rule markduplicates_2rg:
         else
             exit 0
         fi
+
+        rm -r output/{wildcards.exp}/{wildcards.sample}/{wildcards.sample}.mapped.dedup.bam.*
         """

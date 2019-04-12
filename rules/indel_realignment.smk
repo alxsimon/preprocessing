@@ -13,7 +13,7 @@ rule index_before:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.bam"
     output:
-        "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai"
+        temp("output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai")
     params:
         compression = 1,
     threads:
@@ -34,7 +34,7 @@ rule target_intervals:
     params:
         ref = config['ref_fasta']
     log:
-        "output/{exp}/{sample}/targetintervals_{sample}.log"
+        "logs/{exp}/targetintervals_{sample}.log"
     shell:
         "java -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T RealignerTargetCreator "
@@ -47,11 +47,12 @@ rule indel_realignment:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
         target = "output/{exp}/{sample}/{sample}_forIndelRealigner.intervals"
     output:
-        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam")
+        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"),
+        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam.bai")
     params:
         ref = config['ref_fasta']
     log:
-        "output/{exp}/{sample}/indel_realignment_{sample}.log"
+        "logs/{exp}/indel_realignment_{sample}.log"
     shell:
         "java -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T IndelRealigner "
@@ -64,7 +65,7 @@ rule sort_index_final:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"
     output:
-        protected("output/{exp}/{sample}/{sample}.preproc.bam")
+        protected("results/{exp}/{sample}/{sample}.preproc.bam")
     params:
         compression = 6,
         m = config['samtools_sort_m']
