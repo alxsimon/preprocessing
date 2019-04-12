@@ -16,6 +16,6 @@ include: "rules/fastp.smk"
 
 include: "rules/mapping.smk"
 
-include: "rules/markduplicates.smk"
+include: "rules/markduplicates_spark.smk"
 
 include: "rules/indel_realignment.smk"

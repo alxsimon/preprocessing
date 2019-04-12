@@ -12,13 +12,16 @@ rule markduplicates_1rg:
         ref = config['ref_fasta']
     log:
         "output/{exp}/{sample}/markduplicates_stdout_{sample}.log"
+    threads:
+        config['threads']
     shell:
-        "gatk MarkDuplicates "
+        "gatk MarkDuplicatesSpark "
         "-I {input} "
         "-O {output.bam} "
         "-R {params.ref} "
         "--remove-all-duplicates true "
         "-M {output.metrics} "
+        "--conf 'spark.executor.cores={threads}' "
         "|& tee {log}"
 
 rule markduplicates_2rg:
@@ -33,6 +36,8 @@ rule markduplicates_2rg:
         ref = config['ref_fasta']
     log:
         "output/{exp}/{sample}/markduplicates_stdout_{sample}.log"
+    threads:
+        config['threads']
     shell:
         "gatk MarkDuplicatesSpark "
         "-I {input[0]} "
@@ -41,4 +46,5 @@ rule markduplicates_2rg:
         "-R {params.ref} "
         "--remove-all-duplicates true "
         "-M {output.metrics} "
+        "--conf 'spark.executor.cores={threads}' "
         "|& tee {log}"

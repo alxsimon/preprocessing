@@ -1,3 +1,13 @@
+rule fai_dict_ref:
+    input:
+        config['ref_fasta']
+    output:
+        config['ref_fasta'] + ".fai",
+        config['ref_fasta'][:-3] + ".dict"
+    shell:
+        "samtools faidx {input} "
+        "&& gatk CreateSequenceDictionary -R {input}"
+
 rule sort_index_before:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.bam"
@@ -24,7 +34,9 @@ rule sort_index_before:
 
 rule target_intervals:
     input:
-        "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam"
+        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam",
+        ref_fai = config['ref_fasta'] + ".fai",
+        ref_dict = config['ref_fasta'][:-3] + ".dict"
     output:
         temp("output/{exp}/{sample}/{sample}_forIndelRealigner.intervals")
     params:
@@ -35,7 +47,7 @@ rule target_intervals:
         "java -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T RealignerTargetCreator "
 	    "-R {params.ref} "
-	    "-I {input} "
+	    "-I {input.bam} "
 	    "-o {output} |& tee {log}"
 
 rule indel_realignment:
