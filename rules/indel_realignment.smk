@@ -47,8 +47,8 @@ rule indel_realignment:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
         target = "output/{exp}/{sample}/{sample}_forIndelRealigner.intervals"
     output:
-        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"),
-        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam.bai")
+        temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam")
+    shadow: "shallow"
     params:
         ref = config['ref_fasta']
     log:
