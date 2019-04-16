@@ -34,6 +34,7 @@ rule bwa_map:
         "logs/{exp}/bwa_mem_stderr_{sample}_{RG}.log"
     shell:
         "bwa mem "
+        "-t {threads} "
         "-k {params.k} "
         "-L {params.L} "
         "-B {params.B} "
