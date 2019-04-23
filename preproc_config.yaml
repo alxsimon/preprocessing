@@ -3,7 +3,7 @@
 container: container/bioinfo_dm.sif
 samples: samples_info.tsv
 ref_fasta: ref_genome/mg10.scaffolds.fa
-threads: 20
+threads: 15
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"

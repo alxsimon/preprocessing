@@ -6,5 +6,4 @@
 
 cd ~/Preprocessing
 
-singularity exec container/bioinfo_dm.sif snakemake -j 60 -k True > logs/full_pipeline.log
-
+singularity exec container/bioinfo_dm.sif snakemake -j 60 --keep-going > logs/full_pipeline.log
