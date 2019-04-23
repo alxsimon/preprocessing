@@ -25,7 +25,7 @@ rule bwa_map:
         L = config['bwa_L'],
         B = config['bwa_B'],
         O = config['bwa_O'],
-        m = config['samtools_sort_m'],
+        #m = config['samtools_sort_m'],
         ref = config['ref_fasta'],
         rg_string = lambda wildcards, input: get_rg_string(input.clean_R1, wildcards.sample)
     threads:
@@ -44,7 +44,7 @@ rule bwa_map:
         "{input.clean_R1} {input.clean_R2} "
         "2> {log} "
         "| samtools sort "
-        "-m {params.m} "
+        #"-m {params.m} " leave as default as bwa already takes a lot of memory
         "-@ {threads} "
         "-n "
         "-O BAM "
