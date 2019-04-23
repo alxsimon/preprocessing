@@ -20,7 +20,7 @@ rule markduplicates_1rg:
         """
         set +e
         gatk MarkDuplicatesSpark \
-        -I {input[0]} \
+        -I {input} \
         -O {output.bam} \
         -R {params.ref} \
         --remove-all-duplicates true \
