@@ -6,8 +6,6 @@ rule index_ref_genome_bwa:
             extensions = ["amb", "ann", "bwt", "pac", "sa"])
     log:
         "logs/bwa_ref_indexing.log"
-    priority:
-        50
     shell:
         "bwa index "
         "{input} |& tee {log}"
@@ -40,6 +38,7 @@ rule bwa_map:
         "-B {params.B} "
         "-O {params.O} "
         "-R \"{params.rg_string}\" "
+        "-M "
         "{params.ref} "
         "{input.clean_R1} {input.clean_R2} "
         "2> {log} "
