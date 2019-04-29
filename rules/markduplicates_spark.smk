@@ -6,12 +6,11 @@ rule markduplicates_1rg:
     output:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
         metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}"
-    shadow:
-        "full"
     wildcard_constraints:
         exp = "Mgallo"
     params:
-        ref = config['ref_fasta']
+        ref = config['ref_fasta'],
+        java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/markduplicates_stdout_{sample}.log"
     threads:
@@ -20,6 +19,7 @@ rule markduplicates_1rg:
         """
         set +e
         gatk MarkDuplicatesSpark \
+        --java-options "-Xmx{params.java_mem}G" \
         -I {input} \
         -O {output.bam} \
         -R {params.ref} \
@@ -44,20 +44,19 @@ rule markduplicates_2rg:
     output:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
         metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}"
-    shadow:
-        "full"
     wildcard_constraints:
         exp = "Hiseq|Novaseq"
     params:
-        ref = config['ref_fasta']
+        ref = config['ref_fasta'],
+        java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/markduplicates_stdout_{sample}.log"
     threads:
         config['threads']
     shell:
         """
-        set +e
         gatk MarkDuplicatesSpark \
+        --java-options "-Xmx{params.java_mem}G" \
         -I {input[0]} \
         -I {input[1]} \
         -O {output.bam} \
@@ -66,12 +65,4 @@ rule markduplicates_2rg:
         -M {output.metrics} \
         --conf \"spark.executor.cores={threads}\" \
         |& tee {log}
-
-        exitcode=$?
-        if [ $exitcode -eq 1 ]
-        then
-            exit 1
-        else
-            exit 0
-        fi
         """

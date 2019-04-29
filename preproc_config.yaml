@@ -3,7 +3,7 @@
 container: container/bioinfo_dm.sif
 samples: samples_info.tsv
 ref_fasta: ref_genome/mg10.scaffolds.fa
-threads: 15
+threads: 4
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"
@@ -32,5 +32,6 @@ bwa_L: 3
 bwa_B: 2
 bwa_O: 3
 
-# samtools sort parameters
-samtools_sort_m: 1G
+# Memory parameters in Gb
+samtools_sort_m: 1
+gatk_java_heap_mem: 16
