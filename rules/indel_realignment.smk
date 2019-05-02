@@ -8,25 +8,10 @@ rule fai_dict_ref:
         "samtools faidx {input} "
         "&& gatk CreateSequenceDictionary -R {input}"
 
-# Because the index option of MarkDuplicatesSpark does not seem to work
-rule index_before:
-    input:
-        "output/{exp}/{sample}/{sample}.mapped.dedup.bam"
-    output:
-        temp("output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai")
-    params:
-        compression = 1,
-    threads:
-        config['threads']
-    shell:
-        "samtools index "
-        "-@ {threads} "
-        "{input}"
-
 rule target_intervals:
     input:
-        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
-        bai = "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai",
+        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam",
+        bai = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bai",
         ref_fai = config['ref_fasta'] + ".fai",
         ref_dict = config['ref_fasta'][:-3] + ".dict"
     output:
@@ -37,7 +22,7 @@ rule target_intervals:
     log:
         "logs/{exp}/targetintervals_{sample}.log"
     shell:
-        "java -Xmx{params.java_mem}G \
+        "java -Xmx{params.java_mem}g \
         -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T RealignerTargetCreator "
 	    "-R {params.ref} "
@@ -46,8 +31,8 @@ rule target_intervals:
 
 rule indel_realignment:
     input:
-        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.bam",
-        bai = "output/{exp}/{sample}/{sample}.mapped.dedup.bam.bai",
+        bam = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam",
+        bai = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bai",
         target = "output/{exp}/{sample}/{sample}_forIndelRealigner.intervals"
     output:
         bam = temp("output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"),
@@ -58,7 +43,7 @@ rule indel_realignment:
     log:
         "logs/{exp}/indel_realignment_{sample}.log"
     shell:
-        "java -Xmx{params.java_mem}G \
+        "java -Xmx{params.java_mem}g \
         -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
 	    "-T IndelRealigner "
 	    "-R {params.ref} "
@@ -79,7 +64,7 @@ rule sort_index_final:
     shell:
         # Sort
         "samtools sort "
-        "-m {params.m} "
+        "-m {params.m}G "
         "-O BAM "
         "-l {params.compression} "
         "-@ {threads} "
