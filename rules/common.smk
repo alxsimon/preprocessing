@@ -2,7 +2,7 @@ import pandas as pd
 import subprocess
 import glob
 
-configfile: "preproc_config.yaml"
+configfile: "config_preproc.yaml"
 
 singularity: config['container']
 

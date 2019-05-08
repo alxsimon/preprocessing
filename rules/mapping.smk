@@ -6,6 +6,8 @@ rule index_ref_genome_bwa:
             extensions = ["amb", "ann", "bwt", "pac", "sa"])
     log:
         "logs/bwa_ref_indexing.log"
+    group: "filtmap"
+    threads: 1
     shell:
         "bwa index "
         "{input} |& tee {log}"
@@ -30,6 +32,7 @@ rule bwa_map:
         config['threads']
     log:
         "logs/{exp}/bwa_mem_stderr_{sample}_{RG}.log"
+    group: "filtmap"
     shell:
         "bwa mem "
         "-t {threads} "

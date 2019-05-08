@@ -4,6 +4,8 @@ rule fai_dict_ref:
     output:
         config['ref_fasta'] + ".fai",
         config['ref_fasta'][:-3] + ".dict"
+    group: "indel"
+    threads: 1
     shell:
         "samtools faidx {input} "
         "&& gatk CreateSequenceDictionary -R {input}"
@@ -21,6 +23,8 @@ rule target_intervals:
         java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/targetintervals_{sample}.log"
+    group: "indel"
+    threads: 1
     shell:
         "java -Xmx{params.java_mem}g \
         -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
@@ -42,6 +46,8 @@ rule indel_realignment:
         java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/indel_realignment_{sample}.log"
+    group: "indel"
+    threads: 1
     shell:
         "java -Xmx{params.java_mem}g \
         -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
@@ -61,6 +67,7 @@ rule sort_index_final:
         m = config['samtools_sort_m']
     threads:
         config['threads']
+    group: "indel"
     shell:
         # Sort
         "samtools sort "
