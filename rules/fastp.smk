@@ -15,7 +15,6 @@ rule fastp:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
     threads:
         config['threads']
-    group: "filtmap"
     shell:
         "fastp "
         "-i {input.fq1} "

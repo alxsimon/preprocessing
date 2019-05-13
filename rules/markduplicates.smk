@@ -13,7 +13,6 @@ rule markduplicates_1rg:
         java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/markduplicates_stdout_{sample}.log"
-    group: "marksort"
     threads: 1
     shell:
         """
@@ -44,7 +43,6 @@ rule markduplicates_2rg:
         java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/markduplicates_stdout_{sample}.log"
-    group: "marksort"
     threads: 1
     shell:
         """
@@ -70,7 +68,6 @@ rule sort_sam:
         index = temp("output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bai")
     params:
         java_mem = config['gatk_java_heap_mem']
-    group: "marksort"
     threads: 1
     shell:
         "gatk --java-options '-Xmx{params.java_mem}g' SortSam "
