@@ -26,7 +26,7 @@ rule bwa_map:
         O = config['bwa_O'],
         m = config['samtools_sort_m'],
         ref = config['ref_fasta'],
-        rg_string = lambda wildcards, input: get_rg_string(input.clean_R1, wildcards.sample)
+        rg_string = lambda wildcards: get_rg_string(wildcards)
     threads:
         config['threads']
     log:
