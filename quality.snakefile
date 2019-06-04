@@ -8,12 +8,8 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "output/Hiseq/Bodo-01/Bodo-01.mapped.dedup.bam"
+        "output/multiqc.html"
 
-#include: "rules/fastp.smk"
+include: "rules/qualimap.smk"
 
-#include: "rules/mapping.smk"
-
-include: "rules/markduplicates_spark.smk"
-
-#include: "rules/indel_realignment.smk"
+include: "rules/smudgeplot.smk"

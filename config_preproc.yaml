@@ -1,6 +1,6 @@
 # global variables of the pipeline
 
-container: container/bioinfo_dm.sif
+container: container/bioinfo_preproc.sif
 samples: samples_info.tsv
 ref_fasta: ref_genome/mg10.scaffolds.fa
 threads: 4

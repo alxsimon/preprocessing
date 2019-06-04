@@ -6,7 +6,6 @@
 #SBATCH -p long
 #SBATCH -t 10-00:00
 #SBATCH --output master_snakemake.out
-#SBATCH --error master_snakemake.err
 #SBATCH --nodes 1
 #SBATCH --ntasks 1
 #SBATCH --cpus-per-task 4
@@ -15,7 +14,7 @@
 #SBATCH --mail-user alexis.simon@normalesup.org
 #SBATCH -D /shared/projects/mytilus/Preprocessing
 
-module load conda slurm-drmaa
+module load conda
 source activate snakemake
 
 snakemake --use-singularity \
