@@ -19,7 +19,7 @@ source activate snakemake
 
 snakemake --use-singularity \
 --jobs 40 --cluster-config config_cluster.yaml \
--s Snakefile \
+-s preprocessing.snakefile \
 --cluster "sbatch -A {cluster.account} -p {cluster.partition} \
 --error {cluster.error} --output {cluster.output} \
 -t {cluster.time} --nodes {cluster.nodes} \
