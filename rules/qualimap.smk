@@ -5,7 +5,7 @@ rule qualimap:
         "output/{exp}/{sample}/qualimap/qualimapReport_{sample}.html"
     params:
         outdir = "output/{exp}/{sample}/qualimap"
-    logs:
+    log:
         "logs/{exp}/qualimap_{sample}.log"
     threads:
         config['threads']
