@@ -8,7 +8,7 @@ rule qualimap:
     threads:
         config['threads']
     shell:
-        "qualimap "
+        "qualimap bamqc "
         "-bam {input} "
         "-nt {threads} "
         "-outdir {params.outdir} "
