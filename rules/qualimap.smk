@@ -4,13 +4,15 @@ rule qualimap:
     output:
         "output/{exp}/{sample}/qualimap/qualimapReport_{sample}.html"
     params:
-        outdir = "output/{exp}/{sample}/qualimap"
+        outdir = "output/{exp}/{sample}/qualimap",
+        java_mem = config['gatk_java_heap_mem']
     log:
         "logs/{exp}/qualimap_{sample}.log"
     threads:
         config['threads']
     shell:
         "qualimap bamqc "
+        "--java-mem-size={params.java_mem}G "
         "-bam {input} "
         "-nt {threads} "
         "-outdir {params.outdir} > {log} "
