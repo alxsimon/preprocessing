@@ -2,14 +2,16 @@ rule qualimap:
     input:
         "results/{exp}/{sample}/{sample}.preproc.bam"
     output:
-        "output/{exp}/{sample}/qualimap/qualimapReport_{exp}_{sample}.html"
+        "output/{exp}/{sample}/qualimap/qualimapReport_{sample}.html"
     params:
         outdir = "output/{exp}/{sample}/qualimap"
+    logs:
+        "logs/{exp}/qualimap_{sample}.log"
     threads:
         config['threads']
     shell:
         "qualimap bamqc "
         "-bam {input} "
         "-nt {threads} "
-        "-outdir {params.outdir} "
+        "-outdir {params.outdir} > {log} "
         "&& mv {params.outdir}/qualimapReport.html {output}"
