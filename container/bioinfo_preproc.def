@@ -66,13 +66,13 @@ From: ubuntu:18.04
 	## smudgeplot ##
 	conda install -y r-devtools r-testthat r-roxygen2 r-viridis r-argparse numpy scipy
 	cd /tmp/
-	[ -d smudgeplot ] && rmdir smudgeplot
+	[ -d smudgeplot ] && rm -r smudgeplot
 	git clone https://github.com/KamilSJaron/smudgeplot
 	cd smudgeplot
 	Rscript install.R
 	install -C exec/smudgeplot /usr/local/bin
 	install -C exec/smudgeplot_plot.R /usr/local/bin
-	[ -d smudgeplot ] && rmdir smudgeplot
+	[ -d smudgeplot ] && rm -r smudgeplot
 
 %apprun run
 	exec /bin/bash "$@"
