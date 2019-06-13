@@ -9,4 +9,5 @@ rule multiqc_fastp:
         "multiqc . -f "
         "-n multiqc_fastp.html "
         "-o output/multiqc "
+        "--interactive "
         "-m fastp"
