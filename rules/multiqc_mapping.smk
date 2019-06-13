@@ -11,4 +11,4 @@ rule multiqc_mapping:
         "multiqc . -f "
         "-n multiqc_mapping.html "
         "-o output/multiqc "
-        "-m qualimap,picard"
+        "-m qualimap -m picard"
