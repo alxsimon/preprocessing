@@ -1,4 +1,4 @@
-rule multiqc:
+rule multiqc_mapping:
     input:
         expand("output/Mgallo/{ind}/qualimap/qualimapReport_{ind}.html", ind = samples_mgallo),
         expand("output/Hiseq/{ind}/qualimap/qualimapReport_{ind}.html", ind = samples_hiseq),

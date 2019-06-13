@@ -1,4 +1,4 @@
-rule multiqc:
+rule multiqc_fastp:
     input:
         "output/multiqc/multiqc_mapping.html"
     output:
