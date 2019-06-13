@@ -8,10 +8,10 @@ From: ubuntu:18.04
 %environment
 	export PATH=/opt/conda/bin:$PATH
 	export PATH=/opt/tools/bin:$PATH
+	export LC_ALL=C.UTF-8
+	export LANG=C.UTF-8
 
 %post
-	DEBIAN_FRONTEND=noninteractive
-
 	# Set French mirror for apt
 	sed -i -e 's/archive/fr\.archive/' /etc/apt/sources.list
 
@@ -52,6 +52,7 @@ From: ubuntu:18.04
 		bwa=0.7.17 \
 		gatk4=4.1.1.0 \
 		qualimap=2.2.2c \
+		multiqc=1.7 \
 		kmc=3.1.1
 
 	## gatk3 ##
@@ -64,14 +65,14 @@ From: ubuntu:18.04
 
 	## smudgeplot ##
 	conda install -y r-devtools r-testthat r-roxygen2 r-viridis r-argparse numpy scipy
-	rm -r /tmp/smudgeplot
 	cd /tmp/
+	[ -d smudgeplot ] && rmdir smudgeplot
 	git clone https://github.com/KamilSJaron/smudgeplot
 	cd smudgeplot
 	Rscript install.R
 	install -C exec/smudgeplot /usr/local/bin
 	install -C exec/smudgeplot_plot.R /usr/local/bin
-	rm -r /tmp/smudgeplot
+	[ -d smudgeplot ] && rmdir smudgeplot
 
 %apprun run
 	exec /bin/bash "$@"
