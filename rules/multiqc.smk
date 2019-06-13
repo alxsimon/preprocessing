@@ -4,10 +4,10 @@ rule multiqc:
         expand("output/Hiseq/{ind}/qualimap/qualimapReport_{ind}.html", ind = samples_hiseq),
         expand("output/Novaseq/{ind}/qualimap/qualimapReport_{ind}.html", ind = samples_novaseq)
     output:
-        "output/multiqc_report_preprocessing.html"
+        "output/multiqc/multiqc_report_preprocessing.html"
     threads:
         config['threads']
     shell:
         "multiqc . -f "
-        "-n output/multiqc_report_preprocessing.html "
-        "-o output/multiqc_data"
+        "-n multiqc_report_preprocessing.html "
+        "-o output/multiqc"
