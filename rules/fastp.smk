@@ -4,8 +4,8 @@ rule fastp:
     output:
         clean_R1 = "output/{exp}/{sample}/{sample}_{RG}_R1.clean.fastq.gz",
         clean_R2 = "output/{exp}/{sample}/{sample}_{RG}_R2.clean.fastq.gz",
-        report_html = "output/{exp}/{sample}/fastp_report_{sample}_{RG}.html",
-        report_json = "output/{exp}/{sample}/fastp_report_{sample}_{RG}.json"
+        report_html = "output/{exp}/{sample}/{sample}_{RG}.fastp.html",
+        report_json = "output/{exp}/{sample}/{sample}_{RG}.fastp.json"
     params:
         complexity_threshold = config['fastp_complexity_threshold'],
         adapter_sequence_R1 = lambda wildcards: config['adapters'][wildcards.exp]['read1'],
