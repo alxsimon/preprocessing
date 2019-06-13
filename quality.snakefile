@@ -8,7 +8,7 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "output/multiqc_report_preprocessing.html"
+        "output/multiqc/multiqc_report_preprocessing.html"
 
 include: "rules/qualimap.smk"
 
