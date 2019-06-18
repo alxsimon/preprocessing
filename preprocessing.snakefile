@@ -4,7 +4,7 @@
 #   - 48 individuals low-coverage with HiSeq (Hiseq)
 #   - 96 individuals low-coverage with NovaSeq (Novaseq)
 
-include: "rules/common.smk"
+include: "rules/common_preproc.smk"
 
 rule all:
     input:

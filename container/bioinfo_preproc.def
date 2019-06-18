@@ -53,7 +53,8 @@ From: ubuntu:18.04
 		gatk4=4.1.1.0 \
 		qualimap=2.2.2c \
 		multiqc=1.7 \
-		kmc=3.1.1
+		kmc=3.1.1 \
+		mosdepth=0.2.5
 
 	## gatk3 ##
 	mkdir -p /opt/tools/gatk3

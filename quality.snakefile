@@ -9,10 +9,15 @@ include: "rules/common.smk"
 rule all:
     input:
         "output/multiqc/multiqc_mapping.html",
-        "output/multiqc/multiqc_fastp.html"
+        "output/multiqc/multiqc_fastp.html",
+        expand("output/Mgallo/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_mgallo),
+        expand("output/Hiseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_hiseq),
+        expand("output/Novaseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_novaseq)
 
 include: "rules/qualimap.smk"
 
 include: "rules/multiqc_fastp.smk"
 
 include: "rules/multiqc_mapping.smk"
+
+include: "rules/mosdepth.smk"
