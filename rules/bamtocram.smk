@@ -2,7 +2,7 @@ rule bamtocram:
     input:
         "results/{exp}/{sample}/{sample}.preproc.bam"
     output:
-        "results/{exp}/{sample}/{sample}.preproc.cram"
+        protected("results/{exp}/{sample}/{sample}.preproc.cram")
     log:
         "logs/{exp}/bamtocram_{sample}.log"
     params:
