@@ -6,11 +6,18 @@
 
 include: "rules/common_preproc.smk"
 
-rule all:
-    input:
-        expand("results/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
-        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq)
+if config['output_cram']:
+    rule all:
+        input:
+            expand("results/Mgallo/{ind}/{ind}.preproc.cram", ind = samples_mgallo),
+            expand("results/Hiseq/{ind}/{ind}.preproc.cram", ind = samples_hiseq),
+            expand("results/Novaseq/{ind}/{ind}.preproc.cram", ind = samples_novaseq)
+else:
+    rule all:
+        input:
+            expand("results/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
+            expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
+            expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq)
 
 include: "rules/fastp.smk"
 
@@ -19,3 +26,5 @@ include: "rules/mapping.smk"
 include: "rules/markduplicates.smk"
 
 include: "rules/indel_realignment.smk"
+
+include: "rules/bamtocram.smk"
