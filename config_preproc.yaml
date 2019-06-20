@@ -35,6 +35,3 @@ bwa_O: 3
 # Memory parameters in Gb
 samtools_sort_m: 1
 gatk_java_heap_mem: 4
-
-# output cram in addition to bam file
-output_cram: True

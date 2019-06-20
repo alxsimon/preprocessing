@@ -19,6 +19,3 @@ include: "rules/mapping.smk"
 include: "rules/markduplicates.smk"
 
 include: "rules/indel_realignment.smk"
-
-if config['output_cram']:
-    include: "rules/bamtocram.smk"
