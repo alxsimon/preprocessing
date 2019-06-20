@@ -20,7 +20,5 @@ include: "rules/markduplicates.smk"
 
 include: "rules/indel_realignment.smk"
 
-include: "rules/bamtocram.smk"
-
 if config['output_cram']:
     include: "rules/bamtocram.smk"
