@@ -1,8 +1,6 @@
 rule bamtocram:
     input:
-        expand("results/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
-        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq)
+        "results/{exp}/{sample}/{sample}.preproc.bam"
     output:
         expand("results/Mgallo/{ind}/{ind}.preproc.cram", ind = samples_mgallo),
         expand("results/Hiseq/{ind}/{ind}.preproc.cram", ind = samples_hiseq),
