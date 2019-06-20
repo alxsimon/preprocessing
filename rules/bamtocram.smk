@@ -1,8 +1,12 @@
 rule bamtocram:
     input:
-        "results/{exp}/{sample}/{sample}.preproc.bam"
+        expand("results/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
+        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq)
     output:
-        "results/{exp}/{sample}/{sample}.preproc.cram"
+        expand("results/Mgallo/{ind}/{ind}.preproc.cram", ind = samples_mgallo),
+        expand("results/Hiseq/{ind}/{ind}.preproc.cram", ind = samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.preproc.cram", ind = samples_novaseq)
     log:
         "logs/{exp}/bamtocram_{sample}.log"
     params:
