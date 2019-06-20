@@ -12,7 +12,7 @@ rule bamtocram:
     shell:
         "samtools view "
         "-@ {threads} "
-        "-T {ref} "
+        "-T {params.ref} "
         "-C "
         "-o {output} "
         "{input} |& tee {log}"
