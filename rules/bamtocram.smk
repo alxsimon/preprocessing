@@ -16,3 +16,13 @@ rule bamtocram:
         "-C "
         "-o {output} "
         "{input} |& tee {log}"
+
+rule indexcram:
+    input:
+        "results/{exp}/{sample}/{sample}.preproc.cram"
+    output:
+        protected("results/{exp}/{sample}/{sample}.preproc.cram.crai")
+    threads:
+        config['threads']
+    shell:
+        "samtools index -@ {threads} {input}"

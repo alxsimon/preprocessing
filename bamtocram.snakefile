@@ -10,6 +10,9 @@ rule all:
     input:
         expand("results/Mgallo/{ind}/{ind}.preproc.cram", ind = samples_mgallo),
         expand("results/Hiseq/{ind}/{ind}.preproc.cram", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.cram", ind = samples_novaseq)
+        expand("results/Novaseq/{ind}/{ind}.preproc.cram", ind = samples_novaseq),
+        expand("results/Mgallo/{ind}/{ind}.preproc.cram.crai", ind = samples_mgallo),
+        expand("results/Hiseq/{ind}/{ind}.preproc.cram.crai", ind = samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.preproc.cram.crai", ind = samples_novaseq)
 
 include: "rules/bamtocram.smk"
