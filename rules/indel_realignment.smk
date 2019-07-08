@@ -1,14 +1,20 @@
-rule fai_dict_ref:
+rule fai_ref:
     input:
         config['ref_fasta']
     output:
-        fai = config['ref_fasta'] + ".fai",
-        dict = config['ref_fasta'][:-3] + ".dict"
+        config['ref_fasta'] + ".fai",
     threads: 1
     shell:
-        "samtools faidx {input} "
-        "&& [ -e {output.dict} ] && rm {output.dict} "
-        "&& gatk CreateSequenceDictionary -R {input}"
+        "samtools faidx {input}"
+
+rule dict_ref:
+    input:
+        config['ref_fasta']
+    output:
+        config['ref_fasta'][:config['ref_fasta'].rfind('.')] + ".dict"
+    threads: 1
+    shell:
+        "gatk CreateSequenceDictionary -R {input}"
 
 rule target_intervals:
     input:
