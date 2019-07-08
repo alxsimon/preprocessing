@@ -2,11 +2,12 @@ rule fai_dict_ref:
     input:
         config['ref_fasta']
     output:
-        config['ref_fasta'] + ".fai",
-        config['ref_fasta'][:-3] + ".dict"
+        fai = config['ref_fasta'] + ".fai",
+        dict = config['ref_fasta'][:-3] + ".dict"
     threads: 1
     shell:
         "samtools faidx {input} "
+        "&& [ -e {output.dict} ] && rm {output.dict} "
         "&& gatk CreateSequenceDictionary -R {input}"
 
 rule target_intervals:
