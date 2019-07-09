@@ -7,3 +7,5 @@ threads: 4
 
 mosdepth_window: 100
 mosdepth_threads: 4
+
+java_heap_mem: 4
