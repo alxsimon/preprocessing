@@ -8,13 +8,12 @@ rule mosdepth:
     params:
         window = config['mosdepth_window'],
         prefix = "output/{exp}/{sample}/mosdepth/{sample}",
+        ref = config['ref_fasta']
     threads:
         config['mosdepth_threads']
     shell:
         "mosdepth "
-        "-b {params.window} "
+        "-f {params.ref} "
         "-t {threads} "
-        "--fast-mode "
-        "-n "
         "{params.prefix} "
         "{input} |& {log}"
