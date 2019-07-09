@@ -16,4 +16,4 @@ rule mosdepth:
         "-f {params.ref} "
         "-t {threads} "
         "{params.prefix} "
-        "{input} |& {log}"
+        "{input}"
