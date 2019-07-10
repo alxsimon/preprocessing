@@ -15,4 +15,4 @@ rule multiqc_mapping:
         "-n multiqc_mapping.html "
         "-o output/multiqc "
         "--interactive "
-        "--ignore *fastp*"
+        "-m qualimap -m picard -m mosdepth"
