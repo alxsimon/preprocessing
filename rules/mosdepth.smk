@@ -12,7 +12,7 @@ rule mosdepth:
     threads:
         config['mosdepth_threads']
     shell:
-        "MOSDEPTH_PRECISION=5 & "
+        "MOSDEPTH_PRECISION=5 "
         "mosdepth "
         "-f {params.ref} "
         "-t {threads} "
