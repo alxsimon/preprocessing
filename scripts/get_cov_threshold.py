@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+#import sys
+from pathlib import PurePath
+import pandas as pd
+
+# first argument is a file containing a list of all mosdepth.global.dist.txt files
+
+#file_list = sys.argv[1]
+
+def get_max_cov(path):
+    tb = pd.read_csv(path, sep = "\t", header = None, names = ['chrom', 'cov', 'p'])
+    # chromosome, coverage, proportion of bases at this coverage
+    tot = tb[tb.chrom == 'total']
+    max_cov = min(tot[tot.p < 0.01]['cov'])
+    return(max_cov)
+
+#with open(file_list, 'r') as f:
+#for file in f.readlines():
+with open(snakemake.output) as outfile:
+    for file in snakemake.input:
+        filepath = PurePath(file.strip())
+        max_cov = get_max_cov(filepath)
+        sample = filepath.stem.replace('.mosdepth.global.dist', '')
+        outfile.write(sample + '\t' + str(max_cov))
