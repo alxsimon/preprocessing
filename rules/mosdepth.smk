@@ -22,10 +22,15 @@ rule mosdepth:
 
 rule get_cov_threshold:
     input:
-        expand("output/Mgallo/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_mgallo),
-        expand("output/Hiseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_hiseq),
-        expand("output/Novaseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_novaseq)
+        expand(
+            "output/Mgallo/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind=samples_mgallo),
+        expand(
+            "output/Hiseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind=samples_hiseq),
+        expand(
+            "output/Novaseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq)
     output:
         "output/max_coverage_thresholds"
+    params:
+        coverage_quantile = config['coverage_quantile']
     script:
         "scripts/get_cov_threshold.py"
