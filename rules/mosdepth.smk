@@ -33,4 +33,4 @@ rule get_cov_threshold:
     params:
         coverage_quantile = config['coverage_quantile']
     script:
-        "scripts/get_cov_threshold.py"
+        "../scripts/get_cov_threshold.py"
