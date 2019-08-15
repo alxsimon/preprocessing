@@ -10,12 +10,14 @@ coverage_quantile = float(snakemake.params.coverage_quantile)
 input_files = snakemake.input
 output = str(snakemake.output)
 
+
 def get_max_cov(path, q):
     tb = pd.read_csv(path, sep="\t", header=None, names=['chrom', 'cov', 'p'])
     # chromosome, coverage, proportion of bases at this coverage
     tot = tb[tb.chrom == 'total']
     max_cov = min(tot[tot.p < (1 - q)]['cov'])
     return(max_cov)
+
 
 # with open(file_list, 'r') as f:
 # for file in f.readlines():
