@@ -1,0 +1,3 @@
+[submodule "container_admix_genomes"]
+	path = container_admix_genomes
+	url = https://github.com/alxsimon/container_admix_genomes.git
