@@ -10,7 +10,7 @@ rule all:
     input:
         "output/multiqc/multiqc_mapping.html",
         "output/multiqc/multiqc_fastp.html",
-        "output/max_coverage_thresholds"
+        "output/max_coverage"
 
 include: "rules/qualimap.smk"
 

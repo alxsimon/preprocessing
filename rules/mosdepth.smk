@@ -29,7 +29,7 @@ rule get_cov_threshold:
         expand(
             "output/Novaseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq)
     output:
-        "output/max_coverage_thresholds"
+        "output/max_coverage"
     params:
         coverage_quantile = config['coverage_quantile']
     script:
