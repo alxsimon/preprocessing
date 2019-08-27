@@ -32,7 +32,7 @@ rule target_intervals:
     threads: 1
     shell:
         "java -Xmx{params.java_mem}g \
-        -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
+        -jar /opt/gatk3/GenomeAnalysisTK.jar "
 	    "-T RealignerTargetCreator "
 	    "-R {params.ref} "
 	    "-I {input.bam} "
@@ -54,7 +54,7 @@ rule indel_realignment:
     threads: 1
     shell:
         "java -Xmx{params.java_mem}g \
-        -jar /opt/tools/gatk3/GenomeAnalysisTK.jar "
+        -jar /opt/gatk3/GenomeAnalysisTK.jar "
 	    "-T IndelRealigner "
 	    "-R {params.ref} "
         "-targetIntervals {input.target} "
