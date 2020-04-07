@@ -7,7 +7,7 @@ rule markduplicates_1rg:
         bam = temp("output/{exp}/{sample}/{sample}.mapped.dedup.bam"),
         metrics = "output/{exp}/{sample}/duplicate_metrics_{sample}"
     wildcard_constraints:
-        exp = "Mgallo"
+        exp = "Mgallo|Novaseq_2"
     params:
         ref = config['ref_fasta'],
         java_mem = config['gatk_java_heap_mem']

@@ -1,6 +1,6 @@
 # global variables of the pipeline
 
-container: container/bioinfo_preproc.sif
+container: container_admix_genomes/admix_genomes.sif
 samples: samples_info.tsv
 ref_fasta: ref_genome/mg10.scaffolds.fa
 threads: 4
@@ -25,6 +25,9 @@ adapters:
     Novaseq:
         read1: "CTGTCTCTTATACACATCT"
         read2: "CTGTCTCTTATACACATCT"
+    Novaseq_2:
+        read1: "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
+        read2: "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
 
 # baw parameters
 bwa_k: 10

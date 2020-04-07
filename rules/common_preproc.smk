@@ -12,6 +12,7 @@ samples_tb = pd.read_csv(config['samples'], sep = '\t').set_index("sample", drop
 samples_hiseq = samples_tb[samples_tb['experiment'] == 'Hiseq']['sample'].tolist()
 samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['sample'].tolist()
 samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['sample'].tolist()
+samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['sample'].tolist()
 
 def get_pufield(fq1_path):
     pufield = subprocess.check_output("gzip -cd " + fq1_path +
@@ -50,6 +51,12 @@ def get_rg_string(wildcards):
                 wildcards.sample +
                 "/" + wildcards.sample + "_*-" +
                 config['novaseq_rg2'] + "_*_R1.fastq.gz")
+
+    if wildcards.exp == "Novaseq_2":
+        pufield = get_pufield("raw_data/Novaseq_2/" +
+            wildcards.sample +
+            "/" + wildcards.sample +
+            "_S*_R1_001.fastq.gz")
 
     rg_string = "@RG\\tID:" + pufield + "\\tLB:LIB-" + wildcards.sample + \
     "\\tPU:" + pufield + "\\tPL:ILLUMINA\\tSM:" + wildcards.sample
@@ -110,5 +117,15 @@ def get_raw_fastq(wildcards):
                 wildcards.sample +
                 "/" + wildcards.sample + "_*-" +
                 config['novaseq_rg2'] + "_*_R2.fastq.gz")
+    
+    if wildcards.exp == "Novaseq_2":
+        inputs["fq1"] = glob.glob("raw_data/Novaseq_2/" +
+            wildcards.sample +
+            "/" + wildcards.sample +
+            "_S*_R1_001.fastq.gz")
+        inputs["fq2"] = glob.glob("raw_data/Novaseq_2/" +
+            wildcards.sample +
+            "/" + wildcards.sample +
+            "_S*_R2_001.fastq.gz")
 
     return inputs

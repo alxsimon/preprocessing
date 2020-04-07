@@ -9,7 +9,7 @@ rule fastp:
     params:
         complexity_threshold = config['fastp_complexity_threshold'],
         adapter_sequence_R1 = lambda wildcards: config['adapters'][wildcards.exp]['read1'],
-        adapter_sequence_R2 = lambda wildcards: config['adapters'][wildcards.exp]['read1'],
+        adapter_sequence_R2 = lambda wildcards: config['adapters'][wildcards.exp]['read2'],
         P = config['fastp_P']
     log:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
