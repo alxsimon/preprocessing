@@ -8,8 +8,7 @@ rule fastp:
         report_json = "output/{exp}/{sample}/{sample}_{RG}.fastp.json"
     params:
         complexity_threshold = config['fastp_complexity_threshold'],
-        adapter_sequence_R1 = lambda wildcards: config['adapters'][wildcards.exp]['read1'],
-        adapter_sequence_R2 = lambda wildcards: config['adapters'][wildcards.exp]['read2'],
+        adapters_fasta = config['adapters_fasta'],
         P = config['fastp_P']
     log:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
@@ -28,7 +27,6 @@ rule fastp:
         "--html {output.report_html} "
         "--json {output.report_json} "
         "--report_title {wildcards.sample} "
-        "--adapter_sequence {params.adapter_sequence_R1} "
-        "--adapter_sequence_r2 {params.adapter_sequence_R2} "
+        "--adapter_fasta {params.adapter_fasta} "
         "--overrepresentation_analysis "
         "-P {params.P} |& tee {log}"

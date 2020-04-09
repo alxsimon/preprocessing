@@ -15,19 +15,7 @@ novaseq_rg2: "AH52HJDSXX"
 fastp_complexity_threshold: 20
 fastp_P: 100
 
-adapters:
-    Mgallo:
-        read1: "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
-        read2: "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
-    Hiseq:
-        read1: "CTGTCTCTTATACACATCT"
-        read2: "CTGTCTCTTATACACATCT"
-    Novaseq:
-        read1: "CTGTCTCTTATACACATCT"
-        read2: "CTGTCTCTTATACACATCT"
-    Novaseq_2:
-        read1: "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA"
-        read2: "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+adapters_fasta: adapters.fa
 
 # baw parameters
 bwa_k: 10
