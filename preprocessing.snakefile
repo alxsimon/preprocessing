@@ -15,7 +15,7 @@ rule all:
         expand("results/Novaseq_2/{ind}/{ind}.preproc.cram", ind = samples_novaseq_2),
         expand("results/Mgallo/{ind}/{ind}.preproc.cram.crai", ind = samples_mgallo),
         expand("results/Hiseq/{ind}/{ind}.preproc.cram.crai", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.cram.crai", ind = samples_novaseq)
+        expand("results/Novaseq/{ind}/{ind}.preproc.cram.crai", ind = samples_novaseq),
         expand("results/Novaseq_2/{ind}/{ind}.preproc.cram.crai", ind = samples_novaseq_2)
 
 include: "rules/fastp.smk"

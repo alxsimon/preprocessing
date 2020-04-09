@@ -1,9 +1,9 @@
 # global variables of the pipeline
 
 container: container_admix_genomes/admix_genomes.sif
-samples: samples_info.tsv
+samples: samples_info_subset.tsv
 ref_fasta: ref_genome/mg10.scaffolds.fa
-threads: 4
+threads: 16
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"
@@ -36,5 +36,5 @@ bwa_B: 2
 bwa_O: 3
 
 # Memory parameters in Gb
-samtools_sort_m: 1
-gatk_java_heap_mem: 4
+samtools_sort_m: 2
+gatk_java_heap_mem: 8

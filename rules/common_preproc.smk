@@ -7,12 +7,12 @@ configfile: "config_preproc.yaml"
 
 singularity: config['container']
 
-samples_tb = pd.read_csv(config['samples'], sep = '\t').set_index("sample", drop=False)
+samples_tb = pd.read_csv(config['samples'], sep = '\t').set_index("ind", drop=False)
 
-samples_hiseq = samples_tb[samples_tb['experiment'] == 'Hiseq']['sample'].tolist()
-samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['sample'].tolist()
-samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['sample'].tolist()
-samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['sample'].tolist()
+samples_hiseq = samples_tb[samples_tb['experiment'] == 'Hiseq']['ind'].tolist()
+samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['ind'].tolist()
+samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['ind'].tolist()
+samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].tolist()
 
 def get_pufield(fq1_path):
     pufield = subprocess.check_output("gzip -cd " + fq1_path +
