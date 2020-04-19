@@ -5,6 +5,8 @@
 #   - 96 individuals low-coverage with NovaSeq (Novaseq)
 #   - 20 individuals low-coverage with a 2nd run of Novaseq (Novaseq_2)
 
+# Be careful, results bam files need to be kept to run the quality pipeline
+
 include: "rules/common_preproc.smk"
 
 rule all:
