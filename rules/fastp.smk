@@ -8,7 +8,7 @@ rule fastp:
         report_json = "output/{exp}/{sample}/{sample}_{RG}.fastp.json"
     params:
         complexity_threshold = config['fastp_complexity_threshold'],
-        adapters_fasta = config['adapters_fasta'],
+        adapter_fasta = config['adapter_fasta'],
         P = config['fastp_P']
     log:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"

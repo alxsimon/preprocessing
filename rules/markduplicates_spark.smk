@@ -17,6 +17,7 @@ rule markduplicates_1rg:
         config['threads']
     shell:
         """
+        source /conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicatesSpark \
         -I {input} \
         -O {output.bam} \
@@ -25,6 +26,7 @@ rule markduplicates_1rg:
         -M {output.metrics} \
         --conf \"spark.executor.cores={threads}\" \
         |& tee {log}
+        conda deactivate
         """
 
 
@@ -45,6 +47,7 @@ rule markduplicates_2rg:
         config['threads']
     shell:
         """
+        source /conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicatesSpark \
         -I {input[0]} \
         -I {input[1]} \
@@ -54,4 +57,5 @@ rule markduplicates_2rg:
         -M {output.metrics} \
         --conf \"spark.executor.cores={threads}\" \
         |& tee {log}
+        conda deactivate
         """

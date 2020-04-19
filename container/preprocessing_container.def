@@ -1,0 +1,80 @@
+BootStrap: docker
+From: ubuntu:18.04
+
+%labels
+	Author Alexis Simon
+	Version v0.0.1
+
+%environment
+	export PATH=/opt/conda/bin:$PATH
+	export PATH=/opt/tools/bin:$PATH
+	export LC_ALL=C.UTF-8
+	export LANG=C.UTF-8
+
+%post
+	apt-get update && apt-get upgrade -y
+	export DEBIAN_FRONTEND=noninteractive
+	apt-get install -y tzdata
+	TZ=Europe/Paris
+	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+	echo $TZ > /etc/timezone
+	dpkg-reconfigure --frontend noninteractive tzdata
+	apt-get install -y \
+		apt-utils \
+		wget \
+		git \
+		build-essential \
+		automake \
+		curl \
+		bzip2 \
+		software-properties-common \
+		ca-certificates \
+		libssl1.0.0 \
+        zlib1g-dev \
+		libbz2-dev \
+		liblzma-dev \
+		libssl-dev \
+		libxml2-dev libcurl4-openssl-dev
+
+	### Install Conda ###
+	curl -sSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+	&& bash /tmp/miniconda.sh -bp /opt/conda \
+	&& export PATH=/opt/conda/bin:$PATH \
+	&& conda update -y conda \
+	&& conda clean --all --yes
+	cp /opt/conda/etc/profile.d/conda.sh /conda_init.sh
+	sed -i 's/\$PS1/\$\{PS1:-\}/g' /conda_init.sh
+
+	conda config --add channels defaults
+	conda config --add channels bioconda
+	conda config --add channels conda-forge
+
+	conda install -y r-base pandas snakemake
+
+	## Install Bioinfo tools ##
+	conda install -c bioconda -y \
+		samtools \
+		fastp \
+		bwa \
+		qualimap \
+		multiqc \
+		mosdepth
+	
+	conda create -n gatk4 gatk4
+
+	## gatk3 manual install ##
+	conda create -n gatk3 gatk
+	. /conda_init.sh
+	conda activate gatk3
+	wget 'https://storage.googleapis.com/gatk-software/package-archive/gatk/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2' \
+		-O /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2
+	tar -xvjf /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2 -C /tmp/
+	gatk-register /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar
+	rm -r /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2
+	conda deactivate
+
+%apprun run
+	exec /bin/bash "$@"
+
+%runscript
+	exec /bin/bash "$@"

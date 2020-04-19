@@ -16,6 +16,7 @@ rule markduplicates_1rg:
     threads: 1
     shell:
         """
+        source /conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicates \
         -I {input} \
         -O {output.bam} \
@@ -27,6 +28,7 @@ rule markduplicates_1rg:
         --REMOVE_DUPLICATES true \
         --TMP_DIR /tmp/ \
         |& tee {log}
+        conda deactivate
         """
 
 
@@ -46,6 +48,7 @@ rule markduplicates_2rg:
     threads: 1
     shell:
         """
+        source /conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicates \
         -I {input[0]} \
         -I {input[1]} \
@@ -58,6 +61,7 @@ rule markduplicates_2rg:
         --REMOVE_DUPLICATES true \
         --TMP_DIR /tmp/ \
         |& tee {log}
+        conda deactivate
         """
 
 rule sort_sam:
@@ -70,8 +74,12 @@ rule sort_sam:
         java_mem = config['gatk_java_heap_mem']
     threads: 1
     shell:
-        "gatk --java-options '-Xmx{params.java_mem}g' SortSam "
-        "-I {input} "
-        "-O {output.bam} "
-        "-SO 'coordinate' "
-        "--CREATE_INDEX true"
+        """
+        source /conda_init.sh && conda activate gatk4
+        gatk --java-options '-Xmx{params.java_mem}g' SortSam \
+            -I {input} \
+            -O {output.bam} \
+            -SO 'coordinate' \
+            --CREATE_INDEX true
+        conda deactivate
+        """

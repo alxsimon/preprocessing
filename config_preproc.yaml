@@ -1,9 +1,9 @@
 # global variables of the pipeline
 
-container: container_admix_genomes/admix_genomes.sif
-samples: samples_info_subset.tsv
+container: container/preprocessing_container.sif
+samples: tmp.tsv
 ref_fasta: ref_genome/mg10.scaffolds.fa
-threads: 16
+threads: 4
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"
@@ -15,7 +15,7 @@ novaseq_rg2: "AH52HJDSXX"
 fastp_complexity_threshold: 20
 fastp_P: 100
 
-adapters_fasta: adapters.fa
+adapter_fasta: adapters.fa
 
 # baw parameters
 bwa_k: 10

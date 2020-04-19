@@ -14,7 +14,11 @@ rule dict_ref:
         config['ref_fasta'][:config['ref_fasta'].rfind('.')] + ".dict"
     threads: 1
     shell:
-        "gatk CreateSequenceDictionary -R {input}"
+        """
+        source /conda_init.sh && conda activate gatk4
+        gatk CreateSequenceDictionary -R {input}
+        conda deactivate
+        """
 
 rule target_intervals:
     input:
@@ -31,12 +35,15 @@ rule target_intervals:
         "logs/{exp}/targetintervals_{sample}.log"
     threads: 1
     shell:
-        "java -Xmx{params.java_mem}g \
-        -jar /opt/gatk3/GenomeAnalysisTK.jar "
-	    "-T RealignerTargetCreator "
-	    "-R {params.ref} "
-	    "-I {input.bam} "
-	    "-o {output} |& tee {log}"
+        """
+        source /conda_init.sh && conda activate gatk3
+        gatk -Xmx{params.java_mem}g \
+	    -T RealignerTargetCreator \
+	    -R {params.ref} \
+	    -I {input.bam} \
+	    -o {output} |& tee {log}
+        conda deactivate
+        """
 
 rule indel_realignment:
     input:
@@ -53,13 +60,16 @@ rule indel_realignment:
         "logs/{exp}/indel_realignment_{sample}.log"
     threads: 1
     shell:
-        "java -Xmx{params.java_mem}g \
-        -jar /opt/gatk3/GenomeAnalysisTK.jar "
-	    "-T IndelRealigner "
-	    "-R {params.ref} "
-        "-targetIntervals {input.target} "
-	    "-I {input.bam} "
-	    "-o {output.bam} |& tee {log}"
+        """
+        source /conda_init.sh && conda activate gatk3
+        gatk -Xmx{params.java_mem}g \
+	    -T IndelRealigner \
+	    -R {params.ref} \
+        -targetIntervals {input.target} \
+	    -I {input.bam} \
+	    -o {output.bam} |& tee {log}
+        conda deactivate
+        """
 
 rule sort_index_final:
     input:

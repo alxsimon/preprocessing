@@ -5,13 +5,18 @@ Heavy files are not included to avoid taking uncessary space but the folder arch
 
 ## Build the Singularity image
 
-Done with Singularity version 3.1.1 but any version > 3 should be ok.
+Use Singularity with version 3+.
 
-`sudo singularity build container/bioinfo_dm.sif container/bioinfo_dm.def`
+`sudo singularity build container/preprocessing_container.sif container/preprocessing_container.def`
 
 ## Launch the pipeline
 
-`singularity exec container/bioinfo_dm.sif snakemake`
+```
+singularity exec container/preprocessing_container.sif \
+snakemake -j {#CPUs} -s preprocessing.snakefile
 
-Works as the current working directory is mounted in the Singularity image and
-becomes the working directory.
+singularity exec container/preprocessing_container.sif \
+snakemake -j {#CPUs} -s quality.snakefile
+```
+
+Works as the current working directory is mounted in the Singularity image and becomes the working directory.
