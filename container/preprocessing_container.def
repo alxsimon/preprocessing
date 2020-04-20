@@ -7,9 +7,9 @@ From: ubuntu:18.04
 
 %environment
 	export PATH=/opt/conda/bin:$PATH
-	export PATH=/opt/tools/bin:$PATH
 	export LC_ALL=C.UTF-8
 	export LANG=C.UTF-8
+	export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
 
 %post
 	apt-get update && apt-get upgrade -y
@@ -21,6 +21,7 @@ From: ubuntu:18.04
 	dpkg-reconfigure --frontend noninteractive tzdata
 	apt-get install -y \
 		apt-utils \
+		pkg-config \
 		wget \
 		git \
 		build-essential \
@@ -29,8 +30,7 @@ From: ubuntu:18.04
 		bzip2 \
 		software-properties-common \
 		ca-certificates \
-		libssl1.0.0 \
-        zlib1g-dev \
+        	zlib1g-dev \
 		libbz2-dev \
 		liblzma-dev \
 		libssl-dev \
