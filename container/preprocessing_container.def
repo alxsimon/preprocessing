@@ -30,7 +30,7 @@ From: ubuntu:18.04
 		bzip2 \
 		software-properties-common \
 		ca-certificates \
-        	zlib1g-dev \
+        zlib1g-dev \
 		libbz2-dev \
 		liblzma-dev \
 		libssl-dev \
