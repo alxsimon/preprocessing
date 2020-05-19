@@ -38,9 +38,9 @@ RET-13	Hiseq	19-Retinskoye	Medu_eu_north	ind35
 Bizerte-19	Hiseq	Bizerte	Mgallo_med	ind36
 Bizerte-23	Hiseq	Bizerte	Mgallo_med	ind37
 StLau-TD-23	Hiseq	StLau-TD	Mtros	ind38
-JapSea-07	Hiseq	JapSea	Mtros	ind39
+JapSea-07	Hiseq	JapSea	Mtros_pac	ind39
 RET-11	Hiseq	19-Retinskoye	Mtros	ind40
-JapSea-01	Hiseq	JapSea	Mtros	ind41
+JapSea-01	Hiseq	JapSea	Mtros_pac	ind41
 BergAR-88	Hiseq	Berg	Norway_admixed	ind42
 Q13A-11	Hiseq	Q13A	Q13A	ind43
 Q13A-02	Hiseq	Q13A	Q13A	ind44
@@ -165,7 +165,7 @@ LOF-04	Novaseq	LOF	Norway_admixed	ind143
 9-CrimeaC_03	Novaseq_2	CrimeaC	Mgallo_blacksea	ind163
 10-PlanTas_4596	Novaseq_2	PlanTas	Mplan_tas	ind164
 11-PlanTas_4614	Novaseq_2	PlanTas	Mplan_tas	ind165
-15-SEA_01	Novaseq_2	SEA_popphyl	Mtros_pac	ind166
+15-SEA_01	Novaseq_2	SEA_popphyl	Unassigned	ind166
 16-SEA_03	Novaseq_2	SEA_popphyl	Mtros_pac	ind167
 19-Gdansk_10	Novaseq_2	Gdansk	Mtros_balt	ind168
 20-Gdansk_12	Novaseq_2	Gdansk	Mtros_balt	ind169

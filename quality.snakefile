@@ -15,8 +15,9 @@ rule all:
 
 include: "rules/qualimap.smk"
 
+include: "rules/mosdepth.smk"
+
 include: "rules/multiqc_fastp.smk"
 
 include: "rules/multiqc_mapping.smk"
 
-include: "rules/mosdepth.smk"

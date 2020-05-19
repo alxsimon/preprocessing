@@ -1,9 +1,10 @@
 # Preprocessing workflow for Mytilus genomes datasets
 # Three sequencing experiments are processed
-#   - M. galloprovincialis genomes produced by Carlos Canchaya in high coverage (Mgallo)
+#   - 12 M. galloprovincialis genomes produced by Carlos Canchaya in high coverage (Mgallo)
 #   - 48 individuals low-coverage with HiSeq (Hiseq)
 #   - 96 individuals low-coverage with NovaSeq (Novaseq)
 #   - 20 individuals low-coverage with a 2nd run of Novaseq (Novaseq_2)
+#   - Individuals comming from different projects: 3 reference genomes (10X), 2 ancient DNA
 
 # Be careful, results bam files need to be kept to run the quality pipeline
 
