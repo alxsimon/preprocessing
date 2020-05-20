@@ -11,7 +11,7 @@ From: ubuntu:18.04
 	export LANG=C.UTF-8
 	export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
 
-%post
+%post -c /bin/bash
 	apt-get update && apt-get upgrade -y
 	export DEBIAN_FRONTEND=noninteractive
 	apt-get install -y tzdata
@@ -43,13 +43,13 @@ From: ubuntu:18.04
 	&& conda update -y conda \
 	&& conda clean --all --yes
 	cp /opt/conda/etc/profile.d/conda.sh /conda_init.sh
-	sed -i 's/\$PS1/\$\{PS1:-\}/g' /conda_init.sh
-
+	source /conda_init.sh
+	
 	conda config --add channels defaults
 	conda config --add channels bioconda
 	conda config --add channels conda-forge
 
-	conda install -y r-base pandas snakemake
+	conda install -y snakemake
 
 	## Install Bioinfo tools ##
 	conda install -c bioconda -y \
@@ -57,19 +57,20 @@ From: ubuntu:18.04
 		fastp \
 		bwa \
 		qualimap \
-		multiqc \
 		mosdepth
-	
+
+	conda install -c bioconda -y \
+		multiqc=1.8
+
 	conda create -n gatk4 gatk4
 
 	## gatk3 manual install ##
 	conda create -n gatk3 gatk
-	. /conda_init.sh
 	conda activate gatk3
 	wget 'https://storage.googleapis.com/gatk-software/package-archive/gatk/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2' \
 		-O /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2
 	tar -xvjf /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2 -C /tmp/
-	gatk-register /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar
+	gatk3-register /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef/GenomeAnalysisTK.jar
 	rm -r /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2
 	conda deactivate
 

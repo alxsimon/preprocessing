@@ -37,7 +37,7 @@ rule target_intervals:
     shell:
         """
         source /conda_init.sh && conda activate gatk3
-        gatk -Xmx{params.java_mem}g \
+        gatk3 -Xmx{params.java_mem}g \
 	    -T RealignerTargetCreator \
 	    -R {params.ref} \
 	    -I {input.bam} \
@@ -62,7 +62,7 @@ rule indel_realignment:
     shell:
         """
         source /conda_init.sh && conda activate gatk3
-        gatk -Xmx{params.java_mem}g \
+        gatk3 -Xmx{params.java_mem}g \
 	    -T IndelRealigner \
 	    -R {params.ref} \
         -targetIntervals {input.target} \
