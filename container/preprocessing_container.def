@@ -3,7 +3,7 @@ From: ubuntu:18.04
 
 %labels
 	Author Alexis Simon
-	Version v0.0.1
+	Version v1
 
 %environment
 	export PATH=/opt/conda/bin:$PATH
@@ -49,23 +49,23 @@ From: ubuntu:18.04
 	conda config --add channels bioconda
 	conda config --add channels conda-forge
 
-	conda install -y snakemake
+	conda install -y snakemake=5.18.1
 
 	## Install Bioinfo tools ##
 	conda install -c bioconda -y \
-		samtools \
-		fastp \
-		bwa \
-		qualimap \
-		mosdepth
+		samtools=1.10 \
+		fastp=0.20.1 \
+		bwa=0.7.17 \
+		qualimap=2.2.2d \
+		mosdepth=0.2.9
 
 	conda install -c bioconda -y \
 		multiqc=1.8
 
-	conda create -n gatk4 gatk4
+	conda create -n gatk4 gatk4=4.1.7.0
 
 	## gatk3 manual install ##
-	conda create -n gatk3 gatk
+	conda create -n gatk3 gatk=3.8
 	conda activate gatk3
 	wget 'https://storage.googleapis.com/gatk-software/package-archive/gatk/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2' \
 		-O /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2
