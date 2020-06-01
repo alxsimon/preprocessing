@@ -3,7 +3,7 @@ import subprocess
 import glob
 import os.path
 
-configfile: "config_quality.yaml"
+configfile: "configs/config_quality.yaml"
 
 singularity: config['container']
 

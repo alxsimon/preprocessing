@@ -9,7 +9,7 @@ include: "rules/common_quality.smk"
 
 rule all:
     input:
-        "output/multiqc/multiqc_mapping.html",
+        "results/multiqc/multiqc_mapping.html",
         "output/multiqc/multiqc_fastp.html",
         "output/max_coverage"
 
