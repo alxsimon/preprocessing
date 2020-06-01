@@ -32,5 +32,5 @@ rule samtools_stats:
     shell:
         "samtools stats "
         "-@ {threads} "
-        "--reference "
+        "--reference {params.ref} "
         "{input} > {output} 2> {log}"

@@ -13,7 +13,7 @@ rule multiqc_mapping:
         expand("output/Novaseq/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_novaseq),
         expand("output/Novaseq_2/{ind}/mosdepth/{ind}.mosdepth.global.dist.txt", ind = samples_novaseq_2)
     output:
-        "output/multiqc/multiqc_mapping.html"
+        "results/multiqc/multiqc_mapping.html"
     threads:
         config['threads']
     shell:
