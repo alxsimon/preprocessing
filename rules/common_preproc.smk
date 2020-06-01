@@ -3,7 +3,7 @@ import subprocess
 import glob
 import os.path
 
-configfile: "config_preproc.yaml"
+configfile: "configs/config_preproc.yaml"
 
 singularity: config['container']
 
