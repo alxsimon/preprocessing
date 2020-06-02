@@ -1,4 +1,7 @@
 extra_fn_clean_exts:
-  - "_R1.mapped"
-  - ".preproc"
-  - ".stats"
+  - type: remove
+    pattern: ".stats"
+    module: samtools
+  - type: remove
+    pattern: "_RG1.mapped"
+    module: picard
