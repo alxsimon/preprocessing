@@ -13,8 +13,10 @@ rule multiqc_mapping:
     threads:
         config['threads']
     shell:
-        "multiqc results/ output/*/*/duplicate_metrics_*" 
-        "-f "
+        "multiqc -f " 
+	"results/*/*/*.mosdepth.global.dist.txt "
+	"results/*/*/*.stats "
+	"output/*/*/duplicate_metrics_* " 
         "-c configs/multiqc_config.yaml "
         "-n multiqc_mapping.html "
         "-o results/multiqc "
