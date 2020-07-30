@@ -14,7 +14,6 @@ novaseq_rg2: "AH52HJDSXX"
 # fastp global parameters
 fastp_complexity_threshold: 20
 fastp_P: 100
-
 adapter_fasta: adapters.fa
 
 # baw parameters
