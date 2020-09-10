@@ -13,6 +13,7 @@ samples_hiseq = samples_tb[samples_tb['experiment'] == 'Hiseq']['ind'].tolist()
 samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['ind'].tolist()
 samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['ind'].tolist()
 samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].tolist()
+samples_ellis = samples_tb[samples_tb['experiment'] == 'ellis']['ind'].tolist()
 
 def get_pufield(fq1_path):
     pufield = subprocess.check_output("gzip -cd " + fq1_path +
@@ -57,6 +58,12 @@ def get_rg_string(wildcards):
             wildcards.sample +
             "/" + wildcards.sample +
             "_S*_R1_001.fastq.gz")
+
+    if wildcards.exp == "ellis":
+        pufield = get_pufield("raw_data/ellis/" +
+            wildcards.sample +
+            "/*" + wildcards.sample +
+            "_r1.fq.gz")
 
     rg_string = "@RG\\tID:" + pufield + "\\tLB:LIB-" + wildcards.sample + \
     "\\tPU:" + pufield + "\\tPL:ILLUMINA\\tSM:" + wildcards.sample
@@ -127,5 +134,15 @@ def get_raw_fastq(wildcards):
             wildcards.sample +
             "/" + wildcards.sample +
             "_S*_R2_001.fastq.gz")
+
+    if wildcards.exp == "ellis":
+        inputs["fq1"] = glob.glob("raw_data/ellis/" +
+            wildcards.sample +
+            "/*" + wildcards.sample +
+            "_r1.fq.gz")
+        inputs["fq2"] = glob.glob("raw_data/ellis/" +
+            wildcards.sample +
+            "/*" + wildcards.sample +
+            "_r2.fq.gz")
 
     return inputs
