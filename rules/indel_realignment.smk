@@ -15,7 +15,7 @@ rule dict_ref:
     threads: 1
     shell:
         """
-        source /conda_init.sh && conda activate gatk4
+        source /opt/conda_init.sh && conda activate gatk4
         gatk CreateSequenceDictionary -R {input}
         conda deactivate
         """
@@ -36,7 +36,7 @@ rule target_intervals:
     threads: 1
     shell:
         """
-        source /conda_init.sh && conda activate gatk3
+        source /opt/conda_init.sh && conda activate gatk3
         gatk3 -Xmx{params.java_mem}g \
 	    -T RealignerTargetCreator \
 	    -R {params.ref} \
@@ -61,7 +61,7 @@ rule indel_realignment:
     threads: 1
     shell:
         """
-        source /conda_init.sh && conda activate gatk3
+        source /opt/conda_init.sh && conda activate gatk3
         gatk3 -Xmx{params.java_mem}g \
 	    -T IndelRealigner \
 	    -R {params.ref} \

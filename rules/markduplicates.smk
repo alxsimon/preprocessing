@@ -16,7 +16,7 @@ rule markduplicates_1rg:
     threads: 1
     shell:
         """
-        source /conda_init.sh && conda activate gatk4
+        source /opt/conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicates \
         -I {input} \
         -O {output.bam} \
@@ -48,7 +48,7 @@ rule markduplicates_2rg:
     threads: 1
     shell:
         """
-        source /conda_init.sh && conda activate gatk4
+        source /opt/conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicates \
         -I {input[0]} \
         -I {input[1]} \
@@ -75,7 +75,7 @@ rule sort_sam:
     threads: 1
     shell:
         """
-        source /conda_init.sh && conda activate gatk4
+        source /opt/conda_init.sh && conda activate gatk4
         gatk --java-options '-Xmx{params.java_mem}g' SortSam \
             -I {input} \
             -O {output.bam} \
