@@ -4,6 +4,6 @@ __default__:
     nodes: 1
     ntasks: 1
     partition: "long"
-    mem: 100
+    mem: 50
     output: "logs/cluster/{rule}-{wildcards}.out"
     error: "logs/cluster/{rule}-{wildcards}.err"
