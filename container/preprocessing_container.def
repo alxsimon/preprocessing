@@ -25,6 +25,7 @@ From: ubuntu:20.04
 		wget \
 		git \
 		build-essential \
+		tcl \
 		automake \
 		curl \
 		bzip2 \
