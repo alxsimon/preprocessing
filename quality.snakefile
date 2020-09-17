@@ -4,6 +4,7 @@
 #   - 48 individuals low-coverage with HiSeq (Hiseq)
 #   - 96 individuals low-coverage with NovaSeq (Novaseq)
 #   - 20 individuals low-coverage with a 2nd run of Novaseq (Novaseq_2)
+#   - 54 individuals low-coverage from Robert Ellis
 
 include: "rules/common_quality.smk"
 
@@ -27,7 +28,7 @@ rule get_cov_threshold:
         expand("results/Mgallo/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_mgallo),
         expand("results/Hiseq/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_hiseq),
         expand("results/Novaseq/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq),
-        expand("results/Novaseq_2/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq_2)
+        expand("results/Novaseq_2/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq_2),
         expand("results/ellis/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_ellis)
     output:
         "output/max_coverage"
