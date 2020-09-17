@@ -28,6 +28,7 @@ rule get_cov_threshold:
         expand("results/Hiseq/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_hiseq),
         expand("results/Novaseq/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq),
         expand("results/Novaseq_2/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq_2)
+        expand("results/ellis/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_ellis)
     output:
         "output/max_coverage"
     params:
