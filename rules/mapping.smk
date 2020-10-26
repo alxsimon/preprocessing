@@ -8,8 +8,10 @@ rule index_ref_genome_bwa:
         "logs/bwa_ref_indexing.log"
     threads: 1
     shell:
-        "bwa index "
-        "{input} |& tee {log}"
+        """
+        bwa-mem2 index \
+        {input} |& tee {log}
+        """
 
 rule bwa_map:
     input:
@@ -32,18 +34,17 @@ rule bwa_map:
     log:
         "logs/{exp}/bwa_mem_stderr_{sample}_{RG}.log"
     shell:
-        "bwa mem "
-        "-t {threads} "
-        "-k {params.k} "
-        "-L {params.L} "
-        "-B {params.B} "
-        "-O {params.O} "
-        "-R \"{params.rg_string}\" "
-        "-M "
-        "{params.ref} "
-        "{input.clean_R1} {input.clean_R2} "
-        "2> {log} "
-        "| samtools view "
-        "-b "
-        "-@ {threads} "
-        "-o {output}"
+        """
+        bwa-mem2 mem \
+        -t {threads} \
+        -k {params.k} \
+        -L {params.L} \
+        -B {params.B} \
+        -O {params.O} \
+        -R \"{params.rg_string}\" \
+        -M \
+        {params.ref} \
+        {input.clean_R1} {input.clean_R2} \
+        2> {log} \
+        | samtools view -b -@ {threads} -o {output}
+        """
