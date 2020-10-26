@@ -3,7 +3,7 @@ rule index_ref_genome_bwa:
         config['ref_fasta']
     output:
         expand(config['ref_fasta'] + ".{extensions}",
-            extensions = ["amb", "ann", "bwt", "pac", "sa"])
+            extensions = ["amb", "ann", "bwt.2bit.64", "pac", "0123"])
     log:
         "logs/bwa_ref_indexing.log"
     threads: 1
@@ -18,7 +18,7 @@ rule bwa_map:
         clean_R1 = "output/{exp}/{sample}/{sample}_{RG}_R1.clean.fastq.gz",
         clean_R2 = "output/{exp}/{sample}/{sample}_{RG}_R2.clean.fastq.gz",
         ref_bwaindex = expand(config['ref_fasta'] + ".{extensions}",
-            extensions = ["amb", "ann", "bwt", "pac", "sa"])
+            extensions = ["amb", "ann", "bwt.2bit.64", "pac", "0123"])
     output:
         "output/{exp}/{sample}/{sample}_{RG}.mapped.bam"
     params:

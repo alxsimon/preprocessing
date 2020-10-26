@@ -12,11 +12,8 @@ Use Singularity with version 3+.
 ## Launch the pipeline
 
 ```
-singularity exec container/preprocessing_container.sif \
-snakemake -j {#CPUs} -s preprocessing.snakefile
+conda activate snake_env
+snakemake -s preprocessing.snakefile --use-singularity -j {cores}
 
-singularity exec container/preprocessing_container.sif \
-snakemake -j {#CPUs} -s quality.snakefile
+snakemake -s quality.snakefile --use-singularity -j {cores}
 ```
-
-Works as the current working directory is mounted in the Singularity image and becomes the working directory.
