@@ -23,8 +23,10 @@ snakemake --use-singularity \
 --jobs 60 --cluster-config configs/config_cluster.yaml \
 -s preprocessing.snakefile \
 --cluster "sbatch -A {cluster.account} -p {cluster.partition} \
---error {cluster.error} --output {cluster.output} \
 -t {cluster.time} --nodes {cluster.nodes} \
 --ntasks {cluster.ntasks} --mem {cluster.mem}G \
 -D /shared/projects/mytilus/preprocessing \
---cpus-per-task {threads}"
+--cpus-per-task {threads}" \
+--groups fastp=group0 bwa_map=group0 markduplicates_1rg=group0 markduplicates_2rg=group0 \
+sort_sam=group0 target_intervals=group0 indel_realignment=group0 sort_index_final=group0 \
+bamtocram=group0 indexcram=group0
