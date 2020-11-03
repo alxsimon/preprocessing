@@ -5,5 +5,3 @@ __default__:
     ntasks: 1
     partition: "fast"
     mem: 100
-    output: "logs/cluster/{rule}-{wildcards}.out"
-    error: "logs/cluster/{rule}-{wildcards}.err"

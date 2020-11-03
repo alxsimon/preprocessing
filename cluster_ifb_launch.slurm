@@ -24,7 +24,6 @@ snakemake --use-singularity \
 -s preprocessing.snakefile \
 --cluster "sbatch -A {cluster.account} -p {cluster.partition} \
 -t {cluster.time} --nodes {cluster.nodes} \
---error {cluster.error} --output {cluster.output} \
 --ntasks {cluster.ntasks} --mem {cluster.mem}G \
 -D /shared/projects/mytilus/preprocessing \
 --cpus-per-task {threads}"
