@@ -2,7 +2,7 @@ rule sort_index_final:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"
     output:
-        cram = protected("results/{exp}/{sample}/{sample}.preproc.cram")
+        cram = protected("results/{exp}/{sample}/{sample}.preproc.cram"),
         index = protected("results/{exp}/{sample}/{sample}.preproc.cram.crai")
     params:
         compression = 6,

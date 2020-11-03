@@ -2,7 +2,7 @@
 
 container: container/preprocessing_container.sif
 samples: resources/samples_info.tsv
-ref_fasta: ref_genome/mg10.scaffolds.fa
+ref_fasta: ref_genome/mgal_01.fa
 threads: 26
 
 hiseq_rg1: "L001"
