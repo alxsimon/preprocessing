@@ -14,6 +14,9 @@ import subprocess
 import glob
 import os.path
 
+from snakemake.utils import min_version
+min_version("5.27.4")
+
 configfile: "configs/config_preproc.yaml"
 
 singularity: config['container']
