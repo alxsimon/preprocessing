@@ -17,10 +17,10 @@ fastp_P: 100
 adapter_fasta: resources/adapters.fa
 
 # baw parameters
-bwa_k: 10
+bwa_k: 13
+bwa_B: 4
+bwa_O: 4
 bwa_L: 3
-bwa_B: 2
-bwa_O: 3
 
 # Memory parameters in Gb
 samtools_sort_m: 2

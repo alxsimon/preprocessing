@@ -23,9 +23,9 @@ rule bwa_map:
         "output/{exp}/{sample}/{sample}_{RG}.mapped.bam"
     params:
         k = config['bwa_k'],
-        L = config['bwa_L'],
         B = config['bwa_B'],
         O = config['bwa_O'],
+        L = config['bwa_L'],
         m = config['samtools_sort_m'],
         ref = config['ref_fasta'],
         rg_string = lambda wildcards: get_rg_string(wildcards)
@@ -38,9 +38,9 @@ rule bwa_map:
         bwa-mem2 mem \
         -t {threads} \
         -k {params.k} \
-        -L {params.L} \
         -B {params.B} \
         -O {params.O} \
+        -L {params.L} \
         -R \"{params.rg_string}\" \
         -M \
         {params.ref} \

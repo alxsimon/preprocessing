@@ -1,7 +1,9 @@
 __default__:
     account: "mytilus"
-    time: "10-00:00"
+    time: "1-00:00"
     nodes: 1
     ntasks: 1
-    partition: "long"
-    mem: 150
+    partition: "fast"
+    mem: 100
+    output: "logs/cluster/{rule}-{wildcards}.out"
+    error: "logs/cluster/{rule}-{wildcards}.err"

@@ -34,6 +34,7 @@ rule target_intervals:
     log:
         "logs/{exp}/targetintervals_{sample}.log"
     threads: 1
+    group: "group_indel"
     shell:
         """
         set +eu && source /opt/conda_init.sh && conda activate gatk3
@@ -59,6 +60,7 @@ rule indel_realignment:
     log:
         "logs/{exp}/indel_realignment_{sample}.log"
     threads: 1
+    group: "group_indel"
     shell:
         """
         set +eu && source /opt/conda_init.sh && conda activate gatk3
@@ -70,27 +72,3 @@ rule indel_realignment:
 	    -o {output.bam} |& tee {log}
         conda deactivate
         """
-
-rule sort_index_final:
-    input:
-        "output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"
-    output:
-        bam = protected("results/{exp}/{sample}/{sample}.preproc.bam")
-    params:
-        compression = 6,
-        m = config['samtools_sort_m']
-    threads:
-        config['threads']
-    shell:
-        # Sort
-        "samtools sort "
-        "-m {params.m}G "
-        "-O BAM "
-        "-l {params.compression} "
-        "-@ {threads} "
-        "-o {output.bam} "
-        "{input} "
-        # index
-        "&& samtools index "
-        "-@ {threads} "
-        "{output.bam}"

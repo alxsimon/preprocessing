@@ -1,20 +1,3 @@
-import pandas as pd
-import subprocess
-import glob
-import os.path
-
-configfile: "configs/config_preproc.yaml"
-
-singularity: config['container']
-
-samples_tb = pd.read_csv(config['samples'], sep = '\t').set_index("ind", drop=False)
-
-samples_hiseq = samples_tb[samples_tb['experiment'] == 'Hiseq']['ind'].tolist()
-samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['ind'].tolist()
-samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['ind'].tolist()
-samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].tolist()
-samples_ellis = samples_tb[samples_tb['experiment'] == 'ellis']['ind'].tolist()
-
 def get_pufield(fq1_path):
     pufield = subprocess.check_output("gzip -cd " + fq1_path +
     " | head -1 | cut -d ':' -f 3,4,10 | sed 's/:/./g'",

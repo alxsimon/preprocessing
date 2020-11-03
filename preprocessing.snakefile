@@ -9,6 +9,23 @@
 
 # Be careful, results bam files need to be kept to run the quality pipeline
 
+import pandas as pd
+import subprocess
+import glob
+import os.path
+
+configfile: "configs/config_preproc.yaml"
+
+singularity: config['container']
+
+samples_tb = pd.read_csv(config['samples'], sep = '\t').set_index("ind", drop=False)
+
+samples_hiseq = samples_tb[samples_tb['experiment'] == 'Hiseq']['ind'].tolist()
+samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['ind'].tolist()
+samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['ind'].tolist()
+samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].tolist()
+samples_ellis = samples_tb[samples_tb['experiment'] == 'ellis']['ind'].tolist()
+
 include: "rules/common_preproc.smk"
 
 rule all:
@@ -31,4 +48,4 @@ include: "rules/markduplicates.smk"
 
 include: "rules/indel_realignment.smk"
 
-include: "rules/bamtocram.smk"
+include: "rules/final_cram.smk"
