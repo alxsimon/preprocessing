@@ -23,5 +23,4 @@ bwa_O: 4
 bwa_L: 3
 
 # Memory parameters in Gb
-samtools_sort_m: 2
 gatk_java_heap_mem: 8

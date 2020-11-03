@@ -4,4 +4,7 @@ __default__:
     nodes: 1
     ntasks: 1
     partition: "fast"
+    mem: 40
+
+bwa_map:
     mem: 100

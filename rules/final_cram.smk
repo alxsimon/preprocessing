@@ -6,14 +6,13 @@ rule sort_index_final:
         index = protected("results/{exp}/{sample}/{sample}.preproc.cram.crai")
     params:
         compression = 6,
-        m = config['samtools_sort_m'],
         ref = config['ref_fasta']
     threads:
-        config['threads']
+        4
     shell:
         """
         samtools view -@ {threads} -T {params.ref} -C {input} \
-        | samtools sort -@ {threads} -l {params.compression} -m {params.m}G \
+        | samtools sort -@ {threads} -l {params.compression} \
         -O cram -o {output.cram} --reference {params.ref} -
         
         samtools index -@ {threads} {output.cram}
