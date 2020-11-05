@@ -20,7 +20,7 @@ rule bwa_map:
         ref_bwaindex = expand(config['ref_fasta'] + ".{extensions}",
             extensions = ["amb", "ann", "bwt.2bit.64", "pac", "0123"])
     output:
-        "output/{exp}/{sample}/{sample}_{RG}.mapped.bam"
+        temp("output/{exp}/{sample}/{sample}_{RG}.mapped.bam")
     params:
         k = config['bwa_k'],
         B = config['bwa_B'],
