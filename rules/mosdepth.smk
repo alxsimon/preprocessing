@@ -6,7 +6,6 @@ rule mosdepth:
     log:
         "logs/{exp}/mosdepth_{sample}.log"
     params:
-        window = config['mosdepth_window'],
         prefix = "results/{exp}/{sample}/{sample}",
         ref = config['ref_fasta']
     threads:
