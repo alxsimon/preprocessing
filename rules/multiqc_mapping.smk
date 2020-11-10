@@ -12,6 +12,8 @@ rule multiqc_mapping:
         expand("results/ellis/{ind}/{ind}.mosdepth.global.dist.txt", ind = samples_ellis)
     output:
         "results/multiqc/multiqc_mapping.html"
+    params:
+        outdir = lambda w, output: os.path.dirname(output[0])
     threads:
         config['threads']
     shell:
@@ -21,6 +23,6 @@ rule multiqc_mapping:
 	    "output/*/*/duplicate_metrics_* " 
         "-c configs/multiqc_config.yaml "
         "-n multiqc_mapping.html "
-        "-o results/multiqc "
+        "-o {params.outdir} "
         "--interactive "
         "-m samtools -m picard -m mosdepth"
