@@ -30,7 +30,7 @@ rule all:
     input:
         "results/multiqc/multiqc_mapping.html",
         "results/multiqc/multiqc_fastp.html",
-        "output/max_coverage"
+        "results/max_coverage"
 
 include: "rules/samtools_stats.smk"
 
@@ -49,7 +49,7 @@ rule get_cov_threshold:
         expand("results/Novaseq_2/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq_2),
         expand("results/ellis/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_ellis)
     output:
-        "output/max_coverage"
+        "results/max_coverage"
     params:
         coverage_quantile = config['coverage_quantile']
     script:

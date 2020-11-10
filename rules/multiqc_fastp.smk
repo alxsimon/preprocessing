@@ -1,8 +1,8 @@
 rule multiqc_fastp:
     input:
-        "output/multiqc/multiqc_mapping.html"
+        "results/multiqc/multiqc_mapping.html"
     output:
-        "output/multiqc/multiqc_fastp.html"
+        "results/multiqc/multiqc_fastp.html"
     threads:
         config['threads']
     shell:
