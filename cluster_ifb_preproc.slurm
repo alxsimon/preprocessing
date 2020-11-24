@@ -5,7 +5,7 @@
 #SBATCH -A mytilus
 #SBATCH -p long
 #SBATCH -t 30-00:00
-#SBATCH --output master_snakemake.out
+#SBATCH --output master_preproc.out
 #SBATCH --nodes 1
 #SBATCH --ntasks 1
 #SBATCH --cpus-per-task 4
