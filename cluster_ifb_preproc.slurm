@@ -19,11 +19,14 @@ source activate snakemake
 
 [[ ! -e logs/cluster ]] && mkdir logs/cluster 
 
-snakemake --use-singularity \
---jobs 100 --cluster-config configs/config_cluster.yaml \
---cluster "sbatch -A {cluster.account} -p {cluster.partition} \
--t {cluster.time} --nodes {cluster.nodes} \
---ntasks {cluster.ntasks} --mem {cluster.mem}G \
--D /shared/projects/mytilus/preprocessing \
---cpus-per-task {threads}" \
-preprocessing
+for batch in 1 2 3 4; do
+    snakemake --use-singularity \
+    --jobs 100 --cluster-config configs/config_cluster.yaml \
+    --cluster "sbatch -A {cluster.account} -p {cluster.partition} \
+    -t {cluster.time} --nodes {cluster.nodes} \
+    --ntasks {cluster.ntasks} --mem {cluster.mem}G \
+    -D /shared/projects/mytilus/preprocessing \
+    --cpus-per-task {threads}" \
+    preprocessing \
+    --batch preprocessing=${batch}/4
+done
