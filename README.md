@@ -9,11 +9,14 @@ Use Singularity with version 3+.
 
 `sudo singularity build container/preprocessing_container.sif container/preprocessing_container.def`
 
-## Launch the pipeline
+## Launch the pipeline locally
 
 ```
 conda activate snake_env
-snakemake -s preprocessing.snakefile --use-singularity -j {cores}
-
-snakemake -s quality.snakefile --use-singularity -j {cores}
+snakemake --use-singularity -j {cores} prerocessing
+snakemake --use-singularity -j {cores} quality
 ```
+
+## Launch the pipeline on a Slurm cluster
+
+Use the files `cluster_ifb_preproc.slurm` and `cluster_ifb_quality.slurm`
