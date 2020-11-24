@@ -21,9 +21,9 @@ source activate snakemake
 
 snakemake --use-singularity \
 --jobs 100 --cluster-config configs/config_cluster.yaml \
--s preprocessing.snakefile \
 --cluster "sbatch -A {cluster.account} -p {cluster.partition} \
 -t {cluster.time} --nodes {cluster.nodes} \
 --ntasks {cluster.ntasks} --mem {cluster.mem}G \
 -D /shared/projects/mytilus/preprocessing \
---cpus-per-task {threads}"
+--cpus-per-task {threads}" \
+preprocessing

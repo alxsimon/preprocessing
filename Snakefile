@@ -5,9 +5,6 @@
 #   - 96 individuals low-coverage with NovaSeq (Novaseq)
 #   - 20 individuals low-coverage with a 2nd run of Novaseq (Novaseq_2)
 #   - 54 individuals low-coverage from Robert Ellis
-#   - Individuals comming from different projects: 3 reference genomes (10X), 2 ancient DNA
-
-# Be careful, results bam files need to be kept to run the quality pipeline
 
 import pandas as pd
 import subprocess
@@ -17,7 +14,7 @@ import os.path
 from snakemake.utils import min_version
 min_version("5.27.4")
 
-configfile: "configs/config_preproc.yaml"
+configfile: "configs/config.yaml"
 
 singularity: config['container']
 
@@ -30,8 +27,13 @@ samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].t
 samples_ellis = samples_tb[samples_tb['experiment'] == 'ellis']['ind'].tolist()
 
 include: "rules/common_preproc.smk"
+include: "rules/fastp.smk"
+include: "rules/mapping.smk"
+include: "rules/markduplicates.smk"
+include: "rules/indel_realignment.smk"
+include: "rules/final_cram.smk"
 
-rule all:
+rule preprocessing:
     input:
         expand("results/Mgallo/{ind}/{ind}.preproc.cram", ind = samples_mgallo),
         expand("results/Hiseq/{ind}/{ind}.preproc.cram", ind = samples_hiseq),
@@ -43,12 +45,29 @@ rule all:
         expand("results/Novaseq/{ind}/{ind}.preproc.cram.crai", ind = samples_novaseq),
         expand("results/ellis/{ind}/{ind}.preproc.cram.crai", ind = samples_ellis)
 
-include: "rules/fastp.smk"
 
-include: "rules/mapping.smk"
+include: "rules/samtools_stats.smk"
+include: "rules/mosdepth.smk"
+include: "rules/multiqc_fastp.smk"
+include: "rules/multiqc_mapping.smk"
 
-include: "rules/markduplicates.smk"
+rule quality:
+    input:
+        "results/multiqc/multiqc_mapping.html",
+        "results/multiqc/multiqc_fastp.html",
+        "results/max_coverage"
 
-include: "rules/indel_realignment.smk"
 
-include: "rules/final_cram.smk"
+rule get_cov_threshold:
+    input:
+        expand("results/Mgallo/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_mgallo),
+        expand("results/Hiseq/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq),
+        expand("results/Novaseq_2/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_novaseq_2),
+        expand("results/ellis/{ind}/{ind}.mosdepth.global.dist.txt", ind=samples_ellis)
+    output:
+        "results/max_coverage"
+    params:
+        coverage_quantile = config['coverage_quantile']
+    script:
+        "scripts/get_cov_threshold.py"

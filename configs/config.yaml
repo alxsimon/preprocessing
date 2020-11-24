@@ -24,3 +24,8 @@ bwa_L: 3
 
 # Memory parameters in Gb
 gatk_java_heap_mem: 8
+
+# Quality config
+mosdepth_threads: 4
+java_heap_mem: 4
+coverage_quantile: 0.95
