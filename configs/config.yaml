@@ -16,11 +16,11 @@ fastp_complexity_threshold: 20
 fastp_P: 100
 adapter_fasta: resources/adapters.fa
 
-# baw parameters
-bwa_k: 13
+# bwa parameters
+bwa_k: 10
 bwa_B: 4
 bwa_O: 4
-bwa_L: 3
+bwa_L: 5
 
 # Memory parameters in Gb
 gatk_java_heap_mem: 8
