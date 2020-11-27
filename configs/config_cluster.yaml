@@ -7,4 +7,4 @@ __default__:
     mem: 40
 
 bwa_map:
-    mem: 100
+    mem: 200
