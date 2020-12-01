@@ -28,4 +28,4 @@ gatk_java_heap_mem: 8
 # Quality config
 mosdepth_threads: 4
 java_heap_mem: 4
-coverage_quantile: 0.95
+coverage_quantile: 0.99
