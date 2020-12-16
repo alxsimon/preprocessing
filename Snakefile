@@ -31,19 +31,15 @@ include: "rules/fastp.smk"
 include: "rules/mapping.smk"
 include: "rules/markduplicates.smk"
 include: "rules/indel_realignment.smk"
-include: "rules/final_cram.smk"
+include: "rules/final_sort.smk"
 
 rule preprocessing:
     input:
-        expand("results/Mgallo/{ind}/{ind}.preproc.cram", ind = samples_mgallo),
-        expand("results/Hiseq/{ind}/{ind}.preproc.cram", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.cram", ind = samples_novaseq),
-        expand("results/Novaseq_2/{ind}/{ind}.preproc.cram", ind = samples_novaseq_2),
-        expand("results/ellis/{ind}/{ind}.preproc.cram", ind = samples_ellis),
-        expand("results/Mgallo/{ind}/{ind}.preproc.cram.crai", ind = samples_mgallo),
-        expand("results/Hiseq/{ind}/{ind}.preproc.cram.crai", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.cram.crai", ind = samples_novaseq),
-        expand("results/ellis/{ind}/{ind}.preproc.cram.crai", ind = samples_ellis)
+        expand("results/Mgallo/{ind}/{ind}.preproc.bam", ind = samples_mgallo),
+        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq),
+        expand("results/Novaseq_2/{ind}/{ind}.preproc.bam", ind = samples_novaseq_2),
+        expand("results/ellis/{ind}/{ind}.preproc.bam", ind = samples_ellis)
 
 
 include: "rules/samtools_stats.smk"

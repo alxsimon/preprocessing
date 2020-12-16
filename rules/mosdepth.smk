@@ -1,21 +1,19 @@
 rule mosdepth:
     input:
-        "results/{exp}/{sample}/{sample}.preproc.cram"
+        "results/{exp}/{sample}/{sample}.preproc.bam"
     output:
         "results/{exp}/{sample}/{sample}.mosdepth.global.dist.txt"
     log:
         "logs/{exp}/mosdepth_{sample}.log"
     params:
-        prefix = "results/{exp}/{sample}/{sample}",
-        ref = config['ref_fasta']
+        prefix = "results/{exp}/{sample}/{sample}"
     threads:
         config['mosdepth_threads']
     shell:
         "MOSDEPTH_PRECISION=5 "
         "mosdepth "
-        "-f {params.ref} "
         "-t {threads} "
         "{params.prefix} "
         "{input} "
-        "|& tee {log}"
+        "> {log} 2>&1"
 

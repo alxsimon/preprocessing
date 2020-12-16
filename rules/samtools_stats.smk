@@ -1,6 +1,6 @@
 rule samtools_stats:
     input:
-        "results/{exp}/{sample}/{sample}.preproc.cram"
+        "results/{exp}/{sample}/{sample}.preproc.bam"
     output:
         "results/{exp}/{sample}/{sample}.stats"
     params:
@@ -12,5 +12,4 @@ rule samtools_stats:
     shell:
         "samtools stats "
         "-@ {threads} "
-	    "--reference {params.ref} "
         "{input} > {output} 2> {log}"
