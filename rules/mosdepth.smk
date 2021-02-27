@@ -9,6 +9,8 @@ rule mosdepth:
         prefix = "results/{exp}/{sample}/{sample}"
     threads:
         config['mosdepth_threads']
+    conda:
+        "../envs/qc.yaml"
     shell:
         "MOSDEPTH_PRECISION=5 "
         "mosdepth "

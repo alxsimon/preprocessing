@@ -16,6 +16,8 @@ rule multiqc_mapping:
         outdir = lambda w, output: os.path.dirname(output[0])
     threads:
         config['threads']
+    conda:
+        "../envs/qc.yaml"
     shell:
         "multiqc -f " 
 	    "results/*/*/*.mosdepth.global.dist.txt "

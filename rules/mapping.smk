@@ -7,6 +7,8 @@ rule index_ref_genome_bwa:
     log:
         "logs/bwa_ref_indexing.log"
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         """
         bwa-mem2 index \
@@ -32,6 +34,8 @@ rule bwa_map:
         config['threads']
     log:
         "logs/{exp}/bwa_mem_stderr_{sample}_{RG}.log"
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         """
         bwa-mem2 mem \

@@ -3,7 +3,10 @@
 container: container/preprocessing_container.sif
 samples: resources/samples_info.tsv
 ref_fasta: ref_genome/mgal_01.fa
-threads: 26
+mito_ref: resources/mito_ref/mitoF_ref.fa
+mito_ref_gb: resources/mito_ref/mitoF_ref.gb
+
+threads: 28
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"
@@ -29,3 +32,21 @@ gatk_java_heap_mem: 8
 mosdepth_threads: 4
 java_heap_mem: 4
 coverage_quantile: 0.99
+
+# Mitochondrial genes to extract
+mito_genes:
+  - CYTB
+  - COX2
+  - ND1
+  - ND4
+  - COX3
+  - ND2
+  - ND3
+  - ATP8
+  - COX1
+  - ATP6
+  - ND4L
+  - ND5
+  - ND6
+  - rrnS
+  - rrnL

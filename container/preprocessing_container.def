@@ -52,15 +52,6 @@ From: ubuntu:20.04
 
 	conda install pandas mamba
 
-	## Install Bioinfo tools ##
-	mamba install -c bioconda -y \
-		samtools=1.11 \
-		fastp=0.20.1 \
-		bwa-mem2=2.1 \
-		qualimap=2.2.2d \
-		mosdepth=0.3.1 \
-		multiqc=1.9
-
 	## gatk4 ##
 	conda create -n gatk4 gatk4=4.1.7.0
 

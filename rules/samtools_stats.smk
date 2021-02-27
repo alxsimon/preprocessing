@@ -9,6 +9,8 @@ rule samtools_stats:
         "logs/{exp}/samtools_stats_{sample}.log"
     threads:
         config['threads']
+    conda:
+        "../envs/qc.yaml"
     shell:
         "samtools stats "
         "-@ {threads} "

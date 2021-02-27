@@ -14,6 +14,8 @@ rule fastp:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
     threads:
         config['threads']
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         "fastp "
         "-i {input.fq1} "

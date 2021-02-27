@@ -129,3 +129,25 @@ def get_raw_fastq(wildcards):
             "_r2.fq.gz")
 
     return inputs
+
+
+def get_all_fastp(w):
+    read_groups = {
+        'Hiseq': ['RG1', 'RG2'],
+        'Novaseq': ['RG1', 'RG2'],
+        'Novaseq_2': ['RG1'],
+        'ellis': ['RG1']
+    }
+    R1 = [f"output/{w.exp}/{w.sample}/{w.sample}_{rg}_R1.clean.fastq.gz"
+        for rg in ['RG1', 'RG2']
+        if rg in read_groups[w.exp]]
+    R2 = [f"output/{w.exp}/{w.sample}/{w.sample}_{rg}_R2.clean.fastq.gz"
+        for rg in ['RG1', 'RG2']
+        if rg in read_groups[w.exp]]
+    return {'R1': R1, 'R2': R2}
+
+
+def get_all_mito_contigs(w):
+    path1 = 'results/mito_assembly/mitofinder/*/*/*_Final_Results/*_mtDNA_contig_[0-9].fasta'
+    path2 = 'results/mito_assembly/mitofinder/*/*/*_Final_Results/*_mtDNA_contig.fasta'
+    return glob.glob(path1) + glob.glob(path2)
