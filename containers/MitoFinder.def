@@ -1,0 +1,49 @@
+BootStrap: docker
+From: continuumio/miniconda3:latest
+
+%labels
+	Author Alexis Simon
+	Version v0.0.1
+
+%environment
+    export LC_ALL=C.UTF-8
+	export LANG=C.UTF-8
+	export PATH=/opt/MitoFinder:$PATH
+
+%post -c bash
+	export DEBIAN_FRONTEND=noninteractive
+	apt-get update && apt-get upgrade -y
+	apt-get install -y \
+		wget \
+		git \
+		build-essential \
+		automake \
+		curl \
+		bzip2 \
+		libidn11
+
+    ## Conda configure and install packages
+    export PATH=/opt/conda/bin:$PATH
+    conda config --add channels defaults
+    conda config --add channels bioconda
+    conda config --add channels conda-forge
+    conda update -y --all
+    conda install -y mamba
+
+	mamba install -y java-jdk
+
+	## MitoFinder ##
+	git clone https://github.com/RemiAllio/MitoFinder.git /opt/MitoFinder
+	cd /opt/MitoFinder
+	git checkout f90a13c
+	./install.sh
+	chmod -R +x *
+
+	# MitoFinder is installed without megahit here
+
+%apprun run
+	exec /bin/bash "$@"
+
+%runscript
+	exec /bin/bash "$@"
+
