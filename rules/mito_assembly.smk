@@ -39,10 +39,10 @@ rule map_to_mito_ref:
         {params.ref} \
         <(cat {input.R1}) <(cat {input.R2}) \
         2> {log[0]} | \
-        samtools view -u -F 4 - | \
-        samtools sort -l 0 -n -m {params.mem_sort} - | \
+        samtools view -u -F 4 | \
+        samtools sort -l 0 -n -m {params.mem_sort} | \
         samtools fastq -@ {threads} -1 {output[0]} -2 {output[1]} \
-        -0 /dev/null -s /dev/null - 2> {log[0]}
+        -0 /dev/null -s /dev/null 2> {log[1]}
         """
 
 rule megahit_mito:
