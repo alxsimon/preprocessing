@@ -20,6 +20,7 @@ source activate snakemake
 [[ ! -e logs/cluster ]] && mkdir logs/cluster 
 
 snakemake --use-singularity \
+--use-conda --conda-prefix mamba \
 --jobs 100 --cluster-config configs/config_cluster.yaml \
 --cluster "sbatch -A {cluster.account} -p {cluster.partition} \
 -t {cluster.time} --nodes {cluster.nodes} \
