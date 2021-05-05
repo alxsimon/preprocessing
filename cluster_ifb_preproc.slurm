@@ -17,8 +17,6 @@
 module load conda
 source activate snakemake
 
-[[ ! -e logs/cluster ]] && mkdir logs/cluster 
-
 for batch in 1 2 3 4; do
     snakemake --use-singularity \
     --use-conda --conda-prefix mamba \
