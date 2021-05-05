@@ -46,11 +46,3 @@ rule quality:
         "results/multiqc/multiqc_mapping.html",
         "results/multiqc/multiqc_fastp.html",
         "results/max_coverage"
-
-# Mitochondria assembly
-include: "rules/mito_assembly.smk"
-
-rule mito_assembly:
-    input:
-        expand("results/mito_assembly/sequences/mito_merged_gene_{gene}.fa",
-            gene=config["mito_genes"])
