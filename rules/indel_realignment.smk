@@ -4,6 +4,8 @@ rule fai_ref:
     output:
         config['ref_fasta'] + ".fai",
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         "samtools faidx {input}"
 
