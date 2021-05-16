@@ -45,4 +45,3 @@ rule quality:
     input:
         "results/multiqc/multiqc_mapping.html",
         "results/multiqc/multiqc_fastp.html",
-        "results/max_coverage"
