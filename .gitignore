@@ -1,2 +1,4 @@
-.snakemake
+.snakemake/
+.conda/
 *.sif
+resources/raw_data/
