@@ -19,6 +19,7 @@ samples_novaseq = samples_tb[samples_tb['experiment'] == 'Novaseq']['ind'].tolis
 samples_mgallo = samples_tb[samples_tb['experiment'] == 'Mgallo']['ind'].tolist()
 samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].tolist()
 samples_ellis = samples_tb[samples_tb['experiment'] == 'ellis']['ind'].tolist()
+samples_SRA = samples_tb[samples_tb['experiment'] == 'SRA']['ind'].tolist()
 
 include: "rules/common_preproc.smk"
 include: "rules/fastp.smk"
@@ -29,10 +30,11 @@ include: "rules/final_sort.smk"
 
 rule preprocessing:
     input:
-        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind = samples_hiseq),
-        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind = samples_novaseq),
-        expand("results/Novaseq_2/{ind}/{ind}.preproc.bam", ind = samples_novaseq_2),
-        expand("results/ellis/{ind}/{ind}.preproc.bam", ind = samples_ellis)
+        expand("results/Hiseq/{ind}/{ind}.preproc.bam", ind=samples_hiseq),
+        expand("results/Novaseq/{ind}/{ind}.preproc.bam", ind=samples_novaseq),
+        expand("results/Novaseq_2/{ind}/{ind}.preproc.bam", ind=samples_novaseq_2),
+        expand("results/ellis/{ind}/{ind}.preproc.bam", ind=samples_ellis),
+        expand("results/SRA/{ind}/{ind}.preproc.bam", ind=samples_SRA),
 
 
 # QC of preprocessing

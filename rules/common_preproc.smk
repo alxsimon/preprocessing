@@ -5,11 +5,11 @@ def get_pufield(fq1_path):
     return(pufield)
 
 def get_rg_string(wildcards):
-    if wildcards.exp == "Mgallo":
-        pufield = get_pufield("resources/raw_data/Mgallo/" +
+    if wildcards.exp == "SRA":
+        pufield = get_pufield("resources/raw_data/SRA/" +
             wildcards.sample +
             "/" + wildcards.sample +
-            "_S0_L001_R1_001.fastq.gz")
+            "_R1.fastq.gz")
 
     if wildcards.exp == "Hiseq":
         if wildcards.RG == "RG1":
@@ -58,15 +58,15 @@ def get_raw_fastq(wildcards):
     # Function returning the raw fastq files depending on
     # the experiment and the individual wildcards considered.
     inputs = dict()
-    if wildcards.exp == "Mgallo":
-        inputs["fq1"] = ("resources/raw_data/Mgallo/" +
+    if wildcards.exp == "SRA":
+        inputs["fq1"] = ("resources/raw_data/SRA/" +
             wildcards.sample +
             "/" + wildcards.sample +
-            "_S0_L001_R1_001.fastq.gz")
-        inputs["fq2"] = ("resources/raw_data/Mgallo/" +
+            "_R1.fastq.gz")
+        inputs["fq2"] = ("resources/raw_data/SRA/" +
             wildcards.sample +
             "/" + wildcards.sample +
-            "_S0_L001_R2_001.fastq.gz")
+            "_R2.fastq.gz")
 
     if wildcards.exp == "Hiseq":
         if wildcards.RG == "RG1":
@@ -136,7 +136,8 @@ def get_all_fastp(w):
         'Hiseq': ['RG1', 'RG2'],
         'Novaseq': ['RG1', 'RG2'],
         'Novaseq_2': ['RG1'],
-        'ellis': ['RG1']
+        'ellis': ['RG1'],
+        'SRA': ['RG1']
     }
     R1 = [f"output/{w.exp}/{w.sample}/{w.sample}_{rg}_R1.clean.fastq.gz"
         for rg in ['RG1', 'RG2']
