@@ -2,7 +2,7 @@
 
 container: containers/preprocessing_container.sif
 samples: resources/samples_info.tsv
-ref_fasta: resources/ref_genome/mgal_02.fa
+ref_fasta: resources/ref_genome/MgalMED.fa
 
 threads: 28
 
