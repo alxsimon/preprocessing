@@ -27,7 +27,7 @@ rule markduplicates_1rg:
         --VALIDATION_STRINGENCY SILENT \
         --REMOVE_DUPLICATES true \
         --TMP_DIR /tmp/ \
-        |& tee {log}
+        > {log} 2>&1
         conda deactivate
         """
 
@@ -60,7 +60,7 @@ rule markduplicates_2rg:
         --VALIDATION_STRINGENCY SILENT \
         --REMOVE_DUPLICATES true \
         --TMP_DIR /tmp/ \
-        |& tee {log}
+        > {log} 2>&1
         conda deactivate
         """
 

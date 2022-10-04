@@ -41,10 +41,10 @@ rule target_intervals:
         """
         set +eu && source /opt/conda_init.sh && conda activate gatk3
         gatk3 -Xmx{params.java_mem}g \
-	    -T RealignerTargetCreator \
-	    -R {params.ref} \
-	    -I {input.bam} \
-	    -o {output} |& tee {log}
+        -T RealignerTargetCreator \
+        -R {params.ref} \
+        -I {input.bam} \
+        -o {output} > {log} 2>&1
         conda deactivate
         """
 
@@ -67,10 +67,10 @@ rule indel_realignment:
         """
         set +eu && source /opt/conda_init.sh && conda activate gatk3
         gatk3 -Xmx{params.java_mem}g \
-	    -T IndelRealigner \
-	    -R {params.ref} \
+        -T IndelRealigner \
+        -R {params.ref} \
         -targetIntervals {input.target} \
-	    -I {input.bam} \
-	    -o {output.bam} |& tee {log}
+        -I {input.bam} \
+        -o {output.bam} > {log} 2>&1
         conda deactivate
         """

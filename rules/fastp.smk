@@ -31,4 +31,4 @@ rule fastp:
         "--report_title {wildcards.sample} "
         "--adapter_fasta {params.adapter_fasta} "
         "--overrepresentation_analysis "
-        "-P {params.P} |& tee {log}"
+        "-P {params.P} > {log} 2>&1"
