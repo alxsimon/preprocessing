@@ -46,7 +46,6 @@ rule bwa_map:
         -L {params.L} \
         -R \"{params.rg_string}\" \
         -M \
-        -v 4 \
         {params.ref} \
         {input.clean_R1} {input.clean_R2} \
         2> {log} \
