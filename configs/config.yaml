@@ -18,7 +18,7 @@ fastp_P: 100
 adapter_fasta: resources/adapters.fa
 
 # bwa parameters
-bwa_k: 10
+bwa_k: 15
 bwa_B: 4
 bwa_O: 4
 bwa_L: 5
