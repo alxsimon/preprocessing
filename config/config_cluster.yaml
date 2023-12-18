@@ -1,0 +1,10 @@
+__default__:
+    account: "mytilus"
+    time: "1-00:00"
+    nodes: 1
+    ntasks: 1
+    partition: "fast"
+    mem: 40
+
+bwa_map:
+    mem: 250

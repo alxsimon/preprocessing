@@ -1,0 +1,9 @@
+extra_fn_clean_exts:
+  - type: remove
+    pattern: ".stats"
+    module: samtools
+  - type: remove
+    pattern: "_RG1.mapped"
+    module: picard
+
+log_filesize_limit: 2000000000
