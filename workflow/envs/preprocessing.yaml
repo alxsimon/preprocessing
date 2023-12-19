@@ -6,3 +6,4 @@ dependencies:
   - fastp=0.23.4
   - bwa-mem2=2.2.1
   - samtools=1.19
+  - ncbi-datasets-cli=15.34.0
