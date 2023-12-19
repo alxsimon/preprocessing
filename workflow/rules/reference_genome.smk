@@ -12,5 +12,5 @@ rule download_edu_ref:
 		--include gff3,rna,cds,protein,genome,seq-report
 		unzip ncbi_dataset.zip
 		mv ncbi_dataset/data/{params.acc} ./
-		rm -r ncbi_dataset.zip ncbi_dataset
+		rm -r ncbi_dataset.zip ncbi_dataset README.md
 		"""

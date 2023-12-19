@@ -18,6 +18,7 @@ samples_novaseq_2 = samples_tb[samples_tb['experiment'] == 'Novaseq_2']['ind'].t
 samples_ellis = samples_tb[samples_tb['experiment'] == 'ellis']['ind'].tolist()
 samples_SRA = samples_tb[samples_tb['experiment'] == 'SRA']['ind'].tolist()
 
+include: "rules/reference_genome.smk"
 include: "rules/common_preproc.smk"
 include: "rules/fastp.smk"
 include: "rules/mapping.smk"

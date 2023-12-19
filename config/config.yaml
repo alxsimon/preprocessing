@@ -1,10 +1,10 @@
 # global variables of the pipeline
 
 container: containers/preprocessing_container.sif
-samples: resources/samples_info.tsv
+samples: config/samples_info.tsv
 ref_fasta: resources/ref_genome/MgalMED.fa
 
-threads: 28
+threads: 16
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"
