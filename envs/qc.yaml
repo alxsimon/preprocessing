@@ -1,8 +1,0 @@
-channels:
-  - default
-  - conda-forge
-  - bioconda
-dependencies:
-  - samtools=1.15.1
-  - mosdepth=0.3.3
-  - multiqc=1.13

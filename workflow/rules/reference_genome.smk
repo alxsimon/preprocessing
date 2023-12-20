@@ -1,15 +1,17 @@
 rule download_edu_ref:
 	output:
-		"results/GCA_019925275.1/GCA_019925275.1_PEIMed_genomic.fna",
+		"results/GCA_019925275.1/GCA_019925275.1_PEIMed_genomic.fna"
 	params:
-		acc = "GCA_019925275.1",
+		acc = "GCA_019925275.1"
 	conda:
-		"../envs/preprocessing.yaml",
+		"../envs/preprocessing.yaml"
 	shell:
 		"""
 		cd results
-		datasets download genome accession {params.acc} \
-		--include gff3,rna,cds,protein,genome,seq-report
+		for i in {{1..3}}; do 
+			datasets download genome accession {params.acc} \
+		--include genome,seq-report && break || sleep 30
+		done
 		unzip ncbi_dataset.zip
 		mv ncbi_dataset/data/{params.acc} ./
 		rm -r ncbi_dataset.zip ncbi_dataset README.md

@@ -5,7 +5,7 @@ import subprocess
 import glob
 import os.path
 
-configfile: "configs/config.yaml"
+configfile: "config/config.yaml"
 
 singularity: config['container']
 

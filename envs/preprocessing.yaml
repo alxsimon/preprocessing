@@ -1,8 +1,0 @@
-channels:
-  - default
-  - conda-forge
-  - bioconda
-dependencies:
-  - fastp=0.23.2
-  - bwa-mem2=2.2.1
-  - samtools=1.16.1
