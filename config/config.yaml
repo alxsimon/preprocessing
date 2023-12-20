@@ -2,7 +2,7 @@
 
 container: containers/preprocessing_container.sif
 samples: config/samples_info.tsv
-ref_fasta: resources/ref_genome/MgalMED.fa
+ref_fasta: results/GCA_019925275.1/GCA_019925275.1_PEIMed_genomic.fna
 
 threads: 16
 
@@ -18,10 +18,10 @@ fastp_P: 100
 adapter_fasta: resources/adapters.fa
 
 # bwa parameters
-bwa_k: 15
-bwa_B: 4
-bwa_O: 4
-bwa_L: 5
+# bwa_k: 15
+# bwa_B: 4
+# bwa_O: 4
+# bwa_L: 5
 
 # Memory parameters in Gb
 gatk_java_heap_mem: 8
