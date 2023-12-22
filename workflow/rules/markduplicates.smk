@@ -72,6 +72,8 @@ rule sort_sam:
         index = temp("output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bai")
     params:
         java_mem = config['gatk_java_heap_mem']
+    log:
+        "logs/{exp}/sort_sam_{sample}.log"
     threads: 1
     shell:
         """
@@ -80,6 +82,7 @@ rule sort_sam:
             -I {input} \
             -O {output.bam} \
             -SO 'coordinate' \
-            --CREATE_INDEX true
+            --CREATE_INDEX true \
+            > {log} 2>&1
         conda deactivate
         """
