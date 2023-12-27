@@ -2,8 +2,8 @@ rule sort_index_final:
     input:
         "output/{exp}/{sample}/{sample}.mapped.dedup.realigned.bam"
     output:
-        bam = "results/{exp}/{sample}/{sample}.preproc.bam",
-        index = "results/{exp}/{sample}/{sample}.preproc.bam.bai",
+        bam = protected("results/{exp}/{sample}/{sample}.preproc.bam"),
+        index = protected("results/{exp}/{sample}/{sample}.preproc.bam.bai"),
     threads:
         4
     conda:
