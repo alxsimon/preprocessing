@@ -2,3 +2,9 @@
 .conda/
 *.sif
 resources/raw_data/
+.condarc
+.cache/
+results/
+logs/
+output/
+
