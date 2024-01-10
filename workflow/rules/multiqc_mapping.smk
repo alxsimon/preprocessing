@@ -15,7 +15,8 @@ rule multiqc_mapping:
     output:
         "results/multiqc/multiqc_mapping.html"
     params:
-        outdir = lambda w, output: os.path.dirname(output[0])
+        outdir = lambda w, output: os.path.dirname(output[0]),
+        config = "config/multiqc_config.yaml",
     threads:
         config['threads']
     conda:
@@ -25,7 +26,7 @@ rule multiqc_mapping:
 	    "results/*/*/*.mosdepth.global.dist.txt "
 	    "results/*/*/*.stats "
 	    "output/*/*/duplicate_metrics_* " 
-        "-c configs/multiqc_config.yaml "
+        "-c {params.config} "
         "-n multiqc_mapping.html "
         "-o {params.outdir} "
         "--interactive "
