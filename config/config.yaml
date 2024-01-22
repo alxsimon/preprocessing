@@ -2,7 +2,7 @@
 
 container: containers/preprocessing_container.sif
 samples: config/samples_info.tsv
-ref_fasta: results/GCA_019925275.1/GCA_019925275.1_PEIMed_genomic.fna
+ref_fasta: resources/PEIMed_scaffold_final_pins.fa
 
 threads: 16
 

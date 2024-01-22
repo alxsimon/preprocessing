@@ -7,4 +7,5 @@ resources/raw_data/
 results/
 logs/
 output/
+resources/*.fa
 
