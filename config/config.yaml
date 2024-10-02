@@ -2,9 +2,9 @@
 
 container: containers/preprocessing_container.sif
 samples: config/samples_info.tsv
-ref_fasta: resources/PEIMed_scaffold_final_pins.fa
+ref_fasta: resources/GCA_037788925.1_MytGallo_primary_0.1/GCA_037788925.1_MytGallo_primary_0.1_genomic.fna
 
-threads: 16
+threads: 10
 
 hiseq_rg1: "L001"
 hiseq_rg2: "L002"

@@ -13,7 +13,7 @@ rule fastp:
     log:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
     threads:
-        16 # uses up to 16 threads max
+        config["threads"] # uses up to 16 threads max
     conda:
         "../envs/preprocessing.yaml"
     shell:

@@ -1,0 +1,11 @@
+software-deployment-method:
+  - conda
+  - apptainer
+apptainer-args: "-B /data2:/data2"
+cores: 60
+rerun-incomplete: True
+rerun-triggers: 
+  - mtime
+  - code
+  - input
+  - params

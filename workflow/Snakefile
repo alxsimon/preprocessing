@@ -45,3 +45,9 @@ rule quality:
     input:
         "results/multiqc/multiqc_mapping.html",
         "results/multiqc/multiqc_fastp.html",
+
+
+rule all:
+    input:
+        rules.preprocessing.input,
+        rules.quality.input,        
