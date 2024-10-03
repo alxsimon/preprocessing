@@ -2,10 +2,10 @@
 .conda/
 *.sif
 resources/raw_data/
+resources/GCA_037788925.1_MytGallo_primary_0.1/
 .condarc
 .cache/
 results/
 logs/
 output/
 resources/*.fa
-
