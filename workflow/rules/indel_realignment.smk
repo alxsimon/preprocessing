@@ -9,11 +9,13 @@ rule fai_ref:
     shell:
         "samtools faidx {input}"
 
+ref_dict = os.path.splitext(config['ref_fasta'])[0] + ".dict"
+
 rule dict_ref:
     input:
         config['ref_fasta']
     output:
-        config['ref_fasta'][:config['ref_fasta'].rfind('.fna')] + ".dict"
+        ref_dict
     threads: 1
     shell:
         """
@@ -27,7 +29,7 @@ rule target_intervals:
         bam = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bam",
         bai = "output/{exp}/{sample}/{sample}.mapped.dedup.sorted.bai",
         ref_fai = config['ref_fasta'] + ".fai",
-        ref_dict = config['ref_fasta'][:config['ref_fasta'].rfind('.fna')] + ".dict"
+        ref_dict = ref_dict,
     output:
         temp("output/{exp}/{sample}/{sample}_forIndelRealigner.intervals")
     params:

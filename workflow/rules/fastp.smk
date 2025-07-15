@@ -2,8 +2,8 @@ rule fastp:
     input:
         unpack(get_raw_fastq)
     output:
-        clean_R1 = temp("output/{exp}/{sample}/{sample}_{RG}_R1.clean.fastq.gz"),
-        clean_R2 = temp("output/{exp}/{sample}/{sample}_{RG}_R2.clean.fastq.gz"),
+        clean_R1 = "output/{exp}/{sample}/{sample}_{RG}_R1.clean.fastq.gz",
+        clean_R2 = "output/{exp}/{sample}/{sample}_{RG}_R2.clean.fastq.gz",
         report_html = "output/{exp}/{sample}/{sample}_{RG}.fastp.html",
         report_json = "output/{exp}/{sample}/{sample}_{RG}.fastp.json"
     params:
@@ -13,7 +13,7 @@ rule fastp:
     log:
         "logs/{exp}/fastp_stdout_{sample}_{RG}.log"
     threads:
-        16 # uses up to 16 threads max
+        10 # uses up to 16 threads max
     conda:
         "../envs/preprocessing.yaml"
     shell:

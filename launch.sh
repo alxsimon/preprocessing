@@ -4,7 +4,7 @@ for batch in {1..10}; do
   snakemake --use-singularity --use-conda \
   --singularity-args "-B /data2:/data2 -B /data1:/data1" \
   --rerun-incomplete \
-  -c 64 --batch preprocessing=${batch}/10 \
+  -c 48 --batch preprocessing=${batch}/10 \
   $1 \
   preprocessing
 done
