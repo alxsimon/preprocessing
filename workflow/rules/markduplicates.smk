@@ -14,9 +14,10 @@ rule markduplicates_1rg:
     log:
         "logs/{exp}/markduplicates_stdout_{sample}.log"
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         """
-        set +eu && source /opt/conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicates \
         -I {input} \
         -O {output.bam} \
@@ -28,7 +29,6 @@ rule markduplicates_1rg:
         --REMOVE_DUPLICATES true \
         --TMP_DIR /tmp/ \
         > {log} 2>&1
-        conda deactivate
         """
 
 
@@ -46,9 +46,10 @@ rule markduplicates_2rg:
     log:
         "logs/{exp}/markduplicates_stdout_{sample}.log"
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         """
-        set +eu && source /opt/conda_init.sh && conda activate gatk4
         gatk --java-options "-Xmx{params.java_mem}g" MarkDuplicates \
         -I {input[0]} \
         -I {input[1]} \
@@ -61,7 +62,6 @@ rule markduplicates_2rg:
         --REMOVE_DUPLICATES true \
         --TMP_DIR /tmp/ \
         > {log} 2>&1
-        conda deactivate
         """
 
 rule sort_sam:
@@ -75,14 +75,14 @@ rule sort_sam:
     log:
         "logs/{exp}/sort_sam_{sample}.log"
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         """
-        set +eu && source /opt/conda_init.sh && conda activate gatk4
         gatk --java-options '-Xmx{params.java_mem}g' SortSam \
             -I {input} \
             -O {output.bam} \
             -SO 'coordinate' \
             --CREATE_INDEX true \
             > {log} 2>&1
-        conda deactivate
         """

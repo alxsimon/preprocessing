@@ -23,9 +23,9 @@ rule multiqc_mapping:
         "../envs/qc.yaml"
     shell:
         "multiqc -f " 
-	    "results/*/*/*.mosdepth.global.dist.txt "
-	    "results/*/*/*.stats "
-	    "output/*/*/duplicate_metrics_* " 
+        "results/*/*/*.mosdepth.global.dist.txt "
+        "results/*/*/*.stats "
+        "output/*/*/duplicate_metrics_* " 
         "-c {params.config} "
         "-n multiqc_mapping.html "
         "-o {params.outdir} "

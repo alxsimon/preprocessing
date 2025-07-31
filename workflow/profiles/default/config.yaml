@@ -1,0 +1,11 @@
+software-deployment-method:
+  - conda
+  - apptainer
+apptainer-args: "--no-mount home -B /data1:/data1 -B /data2:/data2 -B /tmp:/tmp -B /var/tmp:/var/tmp -B /nas_sea:/nas_sea"
+cores: 60
+rerun-incomplete: True
+rerun-triggers: 
+  - mtime
+  - code
+  - input
+  - params

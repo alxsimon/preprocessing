@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 for batch in {1..10}; do
-  snakemake --use-singularity --use-conda \
-  --singularity-args "-B /data2:/data2 -B /data1:/data1" \
-  --rerun-incomplete \
+  snakemake --profile workflow/profiles/default \
   -c 48 --batch preprocessing=${batch}/10 \
   $1 \
   preprocessing

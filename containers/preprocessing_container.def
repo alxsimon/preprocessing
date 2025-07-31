@@ -46,11 +46,10 @@ From: ubuntu:22.04
 	cp /opt/conda/etc/profile.d/conda.sh /opt/conda_init.sh
 	source /opt/conda_init.sh
 	
-	conda config --add channels defaults
 	conda config --add channels bioconda
 	conda config --add channels conda-forge
 
-	conda install pandas mamba
+	conda install pandas
 
 	## gatk4 ##
 	conda create -n gatk4 gatk4=4.1.7.0

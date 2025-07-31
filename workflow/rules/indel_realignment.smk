@@ -17,11 +17,11 @@ rule dict_ref:
     output:
         ref_dict
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     shell:
         """
-        set +eu && source /opt/conda_init.sh && conda activate gatk4
         gatk CreateSequenceDictionary -R {input}
-        conda deactivate
         """
 
 rule target_intervals:
@@ -38,16 +38,16 @@ rule target_intervals:
     log:
         "logs/{exp}/targetintervals_{sample}.log"
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     group: "group_indel"
     shell:
         """
-        set +eu && source /opt/conda_init.sh && conda activate gatk3
         gatk3 -Xmx{params.java_mem}g \
         -T RealignerTargetCreator \
         -R {params.ref} \
         -I {input.bam} \
         -o {output} > {log} 2>&1
-        conda deactivate
         """
 
 rule indel_realignment:
@@ -64,15 +64,15 @@ rule indel_realignment:
     log:
         "logs/{exp}/indel_realignment_{sample}.log"
     threads: 1
+    conda:
+        "../envs/preprocessing.yaml"
     group: "group_indel"
     shell:
         """
-        set +eu && source /opt/conda_init.sh && conda activate gatk3
         gatk3 -Xmx{params.java_mem}g \
         -T IndelRealigner \
         -R {params.ref} \
         -targetIntervals {input.target} \
         -I {input.bam} \
         -o {output.bam} > {log} 2>&1
-        conda deactivate
         """

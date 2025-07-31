@@ -1,8 +1,8 @@
 # global variables of the pipeline
 
-container: containers/preprocessing_container.sif
+container: containers/miniforge3_extended.sif
 samples: config/samples_info.tsv
-ref_fasta: resources/GCA_036588685.1_PNRI_Mtr1.1.1.hap1_genomic.fa
+ref_fasta: resources/GCA_036588685.1_MT.fa
 
 threads: 16
 
