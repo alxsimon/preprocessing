@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-for batch in {1..10}; do
+for batch in {1..20}; do
   snakemake --profile workflow/profiles/default \
-  -c 48 --batch preprocessing=${batch}/10 \
+  -c 48 --batch preprocessing=${batch}/20 \
   $1 \
   preprocessing
 done
