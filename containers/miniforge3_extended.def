@@ -1,0 +1,45 @@
+BootStrap: docker
+From: condaforge/miniforge3:24.7.1-2
+
+%labels
+    Author Alexis Simon
+    Version v0.0.1
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%post -c bash
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get upgrade -y
+    apt-get install -y \
+        git \
+		build-essential \
+        wget \
+        curl \
+        unzip \
+		bzip2 \
+		tabix \
+        ca-certificates \
+		libssl-dev \
+		libgsl-dev \
+        zlib1g-dev \
+		libbz2-dev \
+		liblzma-dev \
+		libxml2-dev \
+		libcurl4-openssl-dev \
+		libarmadillo-dev
+
+    ## Conda configure and install packages
+    export PATH=/opt/conda/bin:$PATH
+    conda config --add channels bioconda
+    conda update --all -y
+
+    # clean
+    conda clean -y --all
+
+%apprun run
+    exec /bin/bash "$@"
+
+%runscript
+    exec /bin/bash "$@"

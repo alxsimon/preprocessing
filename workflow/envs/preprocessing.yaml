@@ -7,4 +7,7 @@ dependencies:
   - bwa-mem2=2.2.1
   - samtools=1.19
   - ncbi-datasets-cli=15.34.0
+  - gatk4=4.1.7.0
+  - gatk=3.8
+  - bedtools=2.31.1
   - unzip

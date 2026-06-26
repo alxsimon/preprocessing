@@ -40,14 +40,15 @@ include: "rules/samtools_stats.smk"
 include: "rules/mosdepth.smk"
 include: "rules/multiqc_fastp.smk"
 include: "rules/multiqc_mapping.smk"
+include: "rules/bedtools_multicov.smk"
 
 rule quality:
     input:
         "results/multiqc/multiqc_mapping.html",
         "results/multiqc/multiqc_fastp.html",
 
-
 rule all:
     input:
         rules.preprocessing.input,
         rules.quality.input,        
+        "results/coverages_5kb_win.bed",

@@ -41,22 +41,23 @@ From: ubuntu:22.04
 	curl -sSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
 	&& bash /tmp/miniconda.sh -bp /opt/conda \
 	&& export PATH=/opt/conda/bin:$PATH \
-	&& conda update -y conda \
+
+	conda config --remove channels defaults
+	conda config --add channels bioconda
+	conda config --add channels conda-forge
+
+	conda update -y conda \
 	&& conda clean --all --yes
 	cp /opt/conda/etc/profile.d/conda.sh /opt/conda_init.sh
 	source /opt/conda_init.sh
 	
-	conda config --add channels defaults
-	conda config --add channels bioconda
-	conda config --add channels conda-forge
-
 	conda install pandas mamba
 
 	## gatk4 ##
-	conda create -n gatk4 gatk4=4.1.7.0
+	conda create -n gatk4 bioconda::gatk4=4.1.7.0
 
 	## gatk3 manual install ##
-	conda create -n gatk3 gatk=3.8
+	conda create -n gatk3 bioconda::gatk=3.8
 	conda activate gatk3
 	wget 'https://storage.googleapis.com/gatk-software/package-archive/gatk/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2' \
 		-O /tmp/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2
