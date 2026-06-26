@@ -2,6 +2,9 @@ window_size = {
     "5kb": 5_000,
 }
 
+chroms = [
+    f"CM0753{i}.1" for i in range(30, 44)
+]
 
 rule make_windows_genome:
     input:
@@ -16,7 +19,7 @@ rule make_windows_genome:
     shell:
         """
         bedtools makewindows -g <(cut -f 1-2 {input}) \
-            -w {params.window_size} -s {params.step_size} >{output}
+            -w {params.window_size} -s {params.step_size} > {output}
         """
 
 
@@ -28,8 +31,7 @@ rule bedtools_multicov:
         + expand("results/ellis/{ind}/{ind}.preproc.bam", ind=samples_ellis),
         windows="output/genome_windows_5kb.bed",
     output:
-        "results/coverages_5kb_win.bed",
-        "results/coverages_sample_list.txt",
+        "results/coverages_5kb_win_{chr}.bed",
     params:
         min_mapQ = 20,
         sample_list = samples_hiseq + samples_novaseq + samples_novaseq_2 + samples_ellis,
@@ -37,10 +39,23 @@ rule bedtools_multicov:
         "../envs/preprocessing.yaml"
     shell:
         """
-        echo {params.sample_list} | tr '[:space:]' '\n' > {output[1]}
         bedtools multicov \
             -bams {input.bams} \
-            -bed {input.windows} \
+            -bed <(grep -w "{wildcards.chr}" {input.windows}) \
             -q {params.min_mapQ} \
-            > {output[0]}
+            > {output}
+        """
+
+rule all_cov:
+    input:
+        expand("results/coverages_5kb_win_{chr}.bed", chr=chroms),
+    output:
+        "results/coverages_sample_list.txt",
+    params:
+        sample_list = samples_hiseq + samples_novaseq + samples_novaseq_2 + samples_ellis,
+    conda:
+        "../envs/preprocessing.yaml"
+    shell:
+        """
+        echo {params.sample_list} | tr '[:space:]' '\n' > {output}
         """

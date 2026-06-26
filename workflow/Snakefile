@@ -51,4 +51,4 @@ rule all:
     input:
         rules.preprocessing.input,
         rules.quality.input,        
-        "results/coverages_5kb_win.bed",
+        rules.all_cov.output,
